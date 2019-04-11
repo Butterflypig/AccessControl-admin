@@ -1,0 +1,175 @@
+<template>
+    <div>
+        <aside>
+            <div class="logo">
+                <img src="./../../../static/images/dengluhxlogo.png" alt="logo">
+            </div>
+            <el-menu
+                router
+                collapse-transition
+                unique-opened
+                default-active="2"
+                class="el-menu-vertical-demo"
+                @open="handleOpen"
+                @close="handleClose"
+                background-color="#314057"
+                text-color="#fff"
+                active-text-color="#ffd04b">
+                <el-submenu v-for="(item,key) in list" :key="key" :index="item.id">
+                    <template slot="title">
+                        <svg class="icon" aria-hidden="true">
+                            <use :xlink:href="item.iconName"></use>
+                        </svg>
+                        <span>{{item.name}}</span>
+                    </template>
+                    <el-menu-item-group v-for="(group,index) in item.items" :key="index">
+                        <el-menu-item :index="group.index" @click="toPage(group.index)">{{group.title}}</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+            </el-menu>
+        </aside>
+        <div>
+
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "Aside",
+        data() {
+            return {
+                list: [
+                    {
+                        id: '2',
+                        iconName: '#icon-shuju1',
+                        name: '数据统计',
+                        items: [
+                            {
+                                index: 'home/overalldata',
+                                title: '整体数据'
+                            },
+                            {
+                                index: '2-2',
+                                title: '营业部数据'
+                            }
+                        ]
+                    },
+                    {
+                        id: '3',
+                        iconName: '#icon-renlianshibie2',
+                        name: '人脸管理',
+                        items: [
+                            {
+                                index: 'wold',
+                                title: '文字管理'
+                            },
+                            {
+                                index: 'image',
+                                title: '图片管理'
+                            },
+                            {
+                                index: 'video',
+                                title: '视频管理'
+                            },
+                            {
+                                index: 'voice',
+                                title: '语音管理'
+                            }
+                        ]
+                    },
+                    {
+                        id: '4',
+                        iconName: '#icon-zuzhi',
+                        name: '组织架构',
+                        items: [
+                            {
+                                index: '4-1',
+                                title: '选项一'
+                            },
+                            {
+                                index: '4-2',
+                                title: '选项二'
+                            }
+                        ]
+                    },
+                    {
+                        id: '5',
+                        iconName: '#icon-wenjian',
+                        name: '基本数据',
+                        items: [
+                            {
+                                index: '5-1',
+                                title: '留言'
+                            },
+                            {
+                                index: '5-2',
+                                title: '选项二'
+                            }
+                        ]
+                    },
+                    {
+                        id: '6',
+                        iconName: '#icon-kehu',
+                        name: '个人信息',
+                        items: [
+                            {
+                                index: 'CompanyHistory',
+                                title: '公司历史'
+                            },
+                        ]
+                    },
+                    {
+                        id: '7',
+                        iconName: '#icon-shezhi',
+                        name: '系统设置',
+                        items: [
+                            {
+                                index: 'links',
+                                title: '链接管理'
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        methods: {
+            handleOpen(key, keyPath) {
+                // console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                // console.log(key, keyPath);
+            },
+            toIndex() {
+                this.$router.push({name: 'index'});
+            },
+            toPage(index) {
+                if (index === '2-1') {
+                    this.$router.push({name: 'product'});
+                } else if (index === '5-1') {
+                    this.$router.push({name: 'message'});
+                }
+            }
+        }
+    }
+</script>
+
+<style lang="less" scoped>
+    @import "./../../assets/less/index";
+    .logo{
+        padding: 40px 0;
+    }
+    aside {
+        height: 1000px;
+        width: 224px;
+        background: #314057;
+    }
+
+    .el-menu {
+        width: 224px;
+    }
+
+    svg {
+        margin-right: 25px;
+    }
+</style>
