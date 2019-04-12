@@ -16,11 +16,23 @@ export default new Router({
 			path: '/home',
 			name: 'home',
 			component: resolve => require(['./../components/index.vue'],resolve),
-			children: [{
-				path: 'overalldata',
-				name: 'overalldata',
-				component: resolve => require(['./../components/page/overalldata.vue'],resolve),
-			}]
-		}
+			children: [
+				{
+					path: '/overalldata',
+					name: 'overalldata',
+					component: resolve => require(['./../components/page/overalldata.vue'],resolve),
+				},
+				{
+					path: '/salesDepartmentData',
+					name: 'salesDepartmentData',
+					component: resolve => require(['./../components/page/salesDepartmentData.vue'],resolve)
+				},
+				{
+					path: '/customerInfo',
+					name: 'customerInfo',
+					component: resolve => require(['./../components/page/customerInfo.vue'],resolve)
+				},
+			]
+		},
 	]
 })

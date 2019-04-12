@@ -46,11 +46,11 @@
                         name: '数据统计',
                         items: [
                             {
-                                index: 'home/overalldata',
+                                index: 'overalldata',
                                 title: '整体数据'
                             },
                             {
-                                index: '2-2',
+                                index: 'salesDepartmentData',
                                 title: '营业部数据'
                             }
                         ]
@@ -58,23 +58,19 @@
                     {
                         id: '3',
                         iconName: '#icon-renlianshibie2',
-                        name: '人脸管理',
+                        name: '客户管理',
                         items: [
                             {
-                                index: 'wold',
-                                title: '文字管理'
+                                index: 'customerInfo',
+                                title: '客户信息'
                             },
                             {
-                                index: 'image',
-                                title: '图片管理'
+                                index: 'visitingRecord',
+                                title: '来访记录'
                             },
                             {
-                                index: 'video',
-                                title: '视频管理'
-                            },
-                            {
-                                index: 'voice',
-                                title: '语音管理'
+                                index: 'customerArrangement',
+                                title: '客户安排'
                             }
                         ]
                     },
@@ -160,7 +156,7 @@
         padding: 40px 0;
     }
     aside {
-        height: 1000px;
+        height: 1080px;
         width: 224px;
         background: #314057;
     }

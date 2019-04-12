@@ -34,23 +34,28 @@
                 <div id="lineChart"></div>
             </div>
 
+             <!-- 条形图 -->
+            <div>
+                <div id="barChart"></div>
+            </div>
+            
+
+        </section>
+
+
+        <section class="pie">
+
             <!-- 饼状图 -->
+            <div>
+                <div id="accountOpening"></div>
+            </div>
             <div>
                 <div id="pieChartBusiness"></div>
             </div>
             <div>
                 <div id="pieChartAdvisory"></div>
             </div>
-
-        </section>
-
-
-        <section>
-
-            <!-- 条形图 -->
-            <div>
-                <div id="barChart"></div>
-            </div>
+            
         </section>
        
     </div>
@@ -80,6 +85,7 @@ export default {
     },
     mounted () {
         this.lineChart();
+        this.accountOpening();
         this.pieChartBusiness();
         this.pieChartAdvisory();
         this.barChart();
@@ -94,6 +100,7 @@ export default {
 
             // 绘制图表
             myChart.setOption({
+                title: { text: '到访统计' },
                 xAxis: {
                     type: 'category',
                     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -106,6 +113,32 @@ export default {
                     type: 'line'
                 }]
             });
+        },
+
+        //饼状图  开户
+        accountOpening (){
+
+            // 基于准备好的dom，初始化echarts实例
+            let myChart = this.$echarts.init(document.getElementById('accountOpening'))
+
+            myChart.setOption({
+                title: { text: '办理业务' },
+                series : [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius: '55%',
+                        data:[
+                            {value:235, name:'视频广告'},
+                            {value:274, name:'联盟广告'},
+                            {value:310, name:'邮件营销'},
+                            {value:335, name:'直接访问'},
+                            {value:400, name:'搜索引擎'}
+                        ],
+                        color:[ '#e07183','#639fa9','#d6896e','#455a7c','#97c7af']
+                    }
+                ]
+            })
         },
 
         //饼状图  办理业务
@@ -227,19 +260,27 @@ export default {
         flex-flow: row nowrap;
         justify-content: space-between;
     }
-    .data-statistics > div:first-child{
-        width: 717px;
-        height: 343px;
+    .data-statistics > div{
+        width: 816px;
     }
 
-    #lineChart,#pieChartAdvisory,#pieChartBusiness,#barChart{
+    #lineChart,#barChart{
+        height: 365px;
         background-color: #fff;
-        height: 343px;
         margin-top: 25px;
         box-shadow: 0 3px 3px rgba(51, 51, 51, .2);
     }
-    #pieChartAdvisory,#pieChartBusiness{
-        width: 450px;
+    #pieChartAdvisory,#pieChartBusiness,#accountOpening{
+        background-color: #fff;
+        width: 536px;
+        height: 387px;
         box-shadow: 0 3px 3px rgba(51, 51, 51, .2);
+    }
+
+    .pie{
+        margin-top: 25px;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
     }
 </style>
