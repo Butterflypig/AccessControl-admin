@@ -64,13 +64,14 @@
                                 index: 'customerInfo',
                                 title: '客户信息'
                             },
-                            {
-                                index: 'visitingRecord',
-                                title: '来访记录'
-                            },
+                           
                             {
                                 index: 'customerArrangement',
                                 title: '客户安排'
+                            },
+                            {
+                                index: 'visitingRecord',
+                                title: '到访日志'
                             }
                         ]
                     },
@@ -80,39 +81,17 @@
                         name: '组织架构',
                         items: [
                             {
-                                index: '4-1',
-                                title: '选项一'
+                                index: 'companyInfo',
+                                title: '公司信息'
                             },
                             {
-                                index: '4-2',
-                                title: '选项二'
+                                index: 'department',
+                                title: '部门管理'
+                            },
+                            {
+                                index: 'device',
+                                title: '设备管理'
                             }
-                        ]
-                    },
-                    {
-                        id: '5',
-                        iconName: '#icon-wenjian',
-                        name: '基本数据',
-                        items: [
-                            {
-                                index: '5-1',
-                                title: '留言'
-                            },
-                            {
-                                index: '5-2',
-                                title: '选项二'
-                            }
-                        ]
-                    },
-                    {
-                        id: '6',
-                        iconName: '#icon-kehu',
-                        name: '个人信息',
-                        items: [
-                            {
-                                index: 'CompanyHistory',
-                                title: '公司历史'
-                            },
                         ]
                     },
                     {
@@ -121,9 +100,25 @@
                         name: '系统设置',
                         items: [
                             {
-                                index: 'links',
-                                title: '链接管理'
-                            }
+                                index: 'announcement',
+                                title: '公告设置'
+                            },
+                            {
+                                index: 'voice',
+                                title: '语音设置'
+                            },
+                            {
+                                index: 'system',
+                                title: '系统设置'
+                            },
+                            {
+                                index: 'account',
+                                title: '账号设置'
+                            },
+                            {
+                                index: 'default',
+                                title: '默认设置'
+                            },
                         ]
                     }
                 ]

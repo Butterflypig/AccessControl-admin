@@ -63,12 +63,42 @@
             </div>
 
             <!-- 内容部分 -->
-            <main>
+            <main class="contain">
                 <div>
-
-                </div>
-                <div>
-                    
+                    <h3>事项目录</h3>
+                    <div class="table">
+                        <el-table
+                        :data="tableData"
+                        border
+                        style="width: 100%">
+                        <el-table-column
+                        prop="dynamic"
+                        label="动态"
+                        width="100">
+                        </el-table-column>
+                         <el-table-column
+                        prop="dynamic"
+                        label="标题"
+                        width="100">
+                        </el-table-column>
+                         <el-table-column
+                        prop="dynamic"
+                        label="内容"
+                        width="100">
+                        </el-table-column>
+                        <el-table-column label="操作">
+                            <template>
+                                <el-button
+                                size="mini"
+                                >编辑</el-button>
+                                <el-button
+                                size="mini"
+                                type="danger"
+                                >删除</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    </div>
                 </div>
             </main>
         </div>
@@ -80,22 +110,42 @@ export default {
         return{
             input10: '',
             value2: '',
-            options2: [{
-            value: '选项1',
-            label: '黄金糕'
-            }, {
-            value: '选项2',
-            label: '双皮奶'
-            }, {
-            value: '选项3',
-            label: '蚵仔煎'
-            }, {
-            value: '选项4',
-            label: '龙须面'
-            }, {
-            value: '选项5',
-            label: '北京烤鸭'
-            }],
+            options2: [
+                {
+                    value: '选项1',
+                    label: '黄金糕'
+                }, {
+                    value: '选项2',
+                    label: '双皮奶'
+                }, {
+                    value: '选项3',
+                    label: '蚵仔煎'
+                }, {
+                    value: '选项4',
+                    label: '龙须面'
+                }, {
+                    value: '选项5',
+                    label: '北京烤鸭'
+                }
+            ],
+            tableData: [
+                {
+                   dynamic : '事项1'
+                },
+                {
+                   dynamic : '事项1'
+                },
+                {
+                   dynamic : '事项1'
+                },
+                {
+                   dynamic : '事项1'
+                },
+                {
+                   dynamic : '事项1'
+                }
+
+            ]
         }
     }
 }
@@ -119,5 +169,25 @@ export default {
     .el-button{
         background-color: #639fa9;
         border: #639fa9;
+        color: white;
+    }
+
+    /* 内容部分 */
+   
+    .contain >div { 
+        padding-top: 40px;
+        margin-top: 15px;
+        height: 600px;
+        background: #efefef;
+    }
+     .contain >div>h3{
+         font-weight: normal;
+         font-size: 28px;
+         color: #333333
+     }
+      .table{
+        width: 98%;
+        height: 800px;
+        margin: 20px auto;
     }
 </style>
