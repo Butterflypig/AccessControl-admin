@@ -20,7 +20,7 @@
                 <el-form-item label="公司名称：" :label-width="formLabelWidth">
                     <el-input v-model="form.name" autocomplete="off"  placeholder="请输入公司名称"></el-input>
                 </el-form-item>
-                <el-form-item label="企业类型：" :label-width="formLabelWidth">
+                <el-form-item label="联系人：" :label-width="formLabelWidth">
                     <el-input v-model="form.name" autocomplete="off" placeholder="请输入企业类型"></el-input>
                 </el-form-item>
                 <el-form-item label="主要业务：" :label-width="formLabelWidth">
@@ -28,6 +28,9 @@
                 </el-form-item>
                 <el-form-item label="联系方式：" :label-width="formLabelWidth">
                     <el-input v-model="form.name" autocomplete="off" placeholder="请输入联系方式"></el-input>
+                </el-form-item>
+                <el-form-item label="公司邮箱：" :label-width="formLabelWidth">
+                    <el-input v-model="form.name" autocomplete="off" placeholder="请输入公司邮箱"></el-input>
                 </el-form-item>
                 <el-form-item label="公司地址：" :label-width="formLabelWidth">
                     <el-input v-model="form.name" autocomplete="off" placeholder="请输入公司地址"></el-input>
@@ -50,7 +53,7 @@
                 <el-form-item label="公司名称：" :label-width="formLabelWidth">
                     <el-input v-model="form.name" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="企业类型：" :label-width="formLabelWidth">
+                <el-form-item label="联系人：" :label-width="formLabelWidth">
                     <el-input v-model="form.name" autocomplete="on"></el-input>
                 </el-form-item>
                 <el-form-item label="主要业务：" :label-width="formLabelWidth">

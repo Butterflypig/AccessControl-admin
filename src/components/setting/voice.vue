@@ -5,7 +5,7 @@
             <!-- 搜索栏 -->
             <div class="search">
                 <div>
-                    <span>交易频率：</span>
+                    <span>营业部：</span>
                     <el-select v-model="value2" clearable  placeholder="请选择">
                         <el-option
                         v-for="item in options2"
@@ -44,40 +44,22 @@
                             </el-table-column>
                             <el-table-column
                              align="center"
-                            prop="department"
-                            label="部门"
-                            width="150">
+                            prop="title"
+                            label="标题"
+                            width="200">
                             </el-table-column>
                             <el-table-column
                              align="center"
-                            prop="lev"
-                            label="职级"
-                            width="150">
+                            prop="content"
+                            label="内容"
+                            width="800">
                             </el-table-column>
                             <el-table-column
                              align="center"
-                            prop="sex"
-                            label="性别"
-                            width="150">
-                            </el-table-column>
-                            <el-table-column
-                             align="center"
-                            prop="entryTime"
-                            label="入职时间"
-                            width="150">
-                            </el-table-column>
-                            <el-table-column
-                             align="center"
-                            prop="separationTime"
-                            label="离职时间"
-                            width="150">
-                            </el-table-column>
-                            <el-table-column
-                             align="center"
-                            prop="state"
-                            label="状态"
-                            width="150">
-                            </el-table-column>
+                            prop="column"
+                            label="栏目"
+                            width="200">
+                            </el-table-column>                        
                             <el-table-column  align="center" label="操作">
                                 <template>
                                     <el-button
@@ -104,7 +86,7 @@
             </main>
         </div>
     </div>
-</template>
+</template>   
 <script>
 export default {
     data () {
@@ -132,31 +114,19 @@ export default {
             tableData: [
                 {
                     id : 1,
-                    name: 'Jack',
-                    department: '营业部',
-                    lev: '经理',
-                    sex: '男',
-                    entryTime: '2016-02-22',
-                    separationTime: '2019-03-19',
-                    state: '离职'
+                    title: '盛大开业',
+                    content: '开业有礼，大酬宾活动',
+                    column: '菜单'
                 },{
                     id : 1,
-                    name: 'Jack',
-                    department: '营业部',
-                    lev: '经理',
-                    sex: '男',
-                    entryTime: '2016-02-22',
-                    separationTime: '2019-03-19',
-                    state: '离职'
+                    title: '盛大开业',
+                    content: '开业有礼，大酬宾活动',
+                    column: '入口'
                 },{
                     id : 1,
-                    name: 'Jack',
-                    department: '营业部',
-                    lev: '经理',
-                    sex: '男',
-                    entryTime: '2016-02-22',
-                    separationTime: '2019-03-19',
-                    state: '离职'
+                    title: '盛大开业',
+                    content: '开业有礼，大酬宾活动',
+                    column: '退出'
                 },
             ]
         }

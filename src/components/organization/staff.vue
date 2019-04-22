@@ -44,16 +44,22 @@
                             </el-table-column>
                             <el-table-column
                              align="center"
-                            prop="department"
-                            label="部门"
+                            prop="name"
+                            label="名字"
                             width="150">
                             </el-table-column>
                             <el-table-column
                              align="center"
+                            prop="department"
+                            label="部门"
+                            width="150">
+                            </el-table-column>
+                            <!-- <el-table-column
+                             align="center"
                             prop="lev"
                             label="职级"
                             width="150">
-                            </el-table-column>
+                            </el-table-column> -->
                             <el-table-column
                              align="center"
                             prop="sex"
@@ -61,6 +67,12 @@
                             width="150">
                             </el-table-column>
                             <el-table-column
+                             align="center"
+                            prop="birthday"
+                            label="出生日期"
+                            width="150">
+                            </el-table-column>
+                            <!-- <el-table-column
                              align="center"
                             prop="entryTime"
                             label="入职时间"
@@ -71,7 +83,7 @@
                             prop="separationTime"
                             label="离职时间"
                             width="150">
-                            </el-table-column>
+                            </el-table-column> -->
                             <el-table-column
                              align="center"
                             prop="state"

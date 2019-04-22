@@ -89,9 +89,14 @@
                                 title: '部门管理'
                             },
                             {
+                                index: 'staff',
+                                title: '员工管理'
+                            },
+                            {
                                 index: 'device',
                                 title: '设备管理'
                             }
+                            
                         ]
                     },
                     {

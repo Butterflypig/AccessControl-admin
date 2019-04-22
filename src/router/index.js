@@ -53,6 +53,11 @@ export default new Router({
 					component: resolve => require(['./../components/organization/department.vue'],resolve)
 				},
 				{
+					path: '/staff',
+					name: 'staff',
+					component: resolve => require(['./../components/organization/staff.vue'],resolve)
+				},
+				{
 					path: '/device',
 					name: 'device',
 					component: resolve => require(['./../components/organization/device.vue'],resolve)
@@ -61,6 +66,26 @@ export default new Router({
 					path: '/announcement',
 					name: 'announcement',
 					component: resolve => require(['./../components/setting/announcement.vue'],resolve)
+				},
+				{
+					path: '/voice',
+					name: 'voice',
+					component: resolve => require(['./../components/setting/voice.vue'],resolve)
+				},
+				{
+					path: '/system',
+					name: 'system',
+					component: resolve => require(['./../components/setting/system.vue'],resolve)
+				},
+				{
+					path: '/account',
+					name: 'account',
+					component: resolve => require(['./../components/setting/account.vue'],resolve)
+				},
+				{
+					path: '/default',
+					name: 'default',
+					component: resolve => require(['./../components/setting/default.vue'],resolve)
 				}
 			]
 		},

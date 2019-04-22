@@ -5,7 +5,7 @@
             <!-- 搜索栏 -->
             <div class="search">
                 <div>
-                    <span>交易频率：</span>
+                    <span>营业部：</span>
                     <el-select v-model="value2" clearable  placeholder="请选择">
                         <el-option
                         v-for="item in options2"
@@ -44,39 +44,39 @@
                             </el-table-column>
                             <el-table-column
                              align="center"
-                            prop="department"
-                            label="部门"
-                            width="150">
+                            prop="name"
+                            label="用户名"
+                            width="200">
                             </el-table-column>
                             <el-table-column
                              align="center"
-                            prop="lev"
-                            label="职级"
-                            width="150">
+                            prop="password"
+                            label="密码"
+                            width="200">
                             </el-table-column>
                             <el-table-column
                              align="center"
-                            prop="sex"
-                            label="性别"
-                            width="150">
+                            prop="own"
+                            label="拥有者"
+                            width="200">
                             </el-table-column>
                             <el-table-column
                              align="center"
-                            prop="entryTime"
-                            label="入职时间"
-                            width="150">
+                            prop="permission"
+                            label="权限级别"
+                            width="200">
                             </el-table-column>
                             <el-table-column
                              align="center"
-                            prop="separationTime"
-                            label="离职时间"
-                            width="150">
+                            prop="createTime"
+                            label="创建时间"
+                            width="200">
                             </el-table-column>
                             <el-table-column
                              align="center"
-                            prop="state"
-                            label="状态"
-                            width="150">
+                            prop="updateTime"
+                            label="更新时间"
+                            width="200">
                             </el-table-column>
                             <el-table-column  align="center" label="操作">
                                 <template>
@@ -104,7 +104,7 @@
             </main>
         </div>
     </div>
-</template>
+</template>   
 <script>
 export default {
     data () {
@@ -132,32 +132,29 @@ export default {
             tableData: [
                 {
                     id : 1,
-                    name: 'Jack',
-                    department: '营业部',
-                    lev: '经理',
-                    sex: '男',
-                    entryTime: '2016-02-22',
-                    separationTime: '2019-03-19',
-                    state: '离职'
+                    name: 'zhangsan',
+                    password: '123456',
+                    own: '张三',
+                    permission: '最高级',
+                    createTime: '2015-03-19',
+                    updateTime: '2019-04-12'
                 },{
                     id : 1,
-                    name: 'Jack',
-                    department: '营业部',
-                    lev: '经理',
-                    sex: '男',
-                    entryTime: '2016-02-22',
-                    separationTime: '2019-03-19',
-                    state: '离职'
+                    name: 'lisi',
+                    password: '123456',
+                    own: '李四',
+                    permission: '经理级',
+                    createTime: '2015-03-19',
+                    updateTime: '2019-04-12'
                 },{
                     id : 1,
-                    name: 'Jack',
-                    department: '营业部',
-                    lev: '经理',
-                    sex: '男',
-                    entryTime: '2016-02-22',
-                    separationTime: '2019-03-19',
-                    state: '离职'
-                },
+                    name: 'wanger',
+                    password: '654321',
+                    own: '王二',
+                    permission: '经理级',
+                    createTime: '2015-03-19',
+                    updateTime: '2019-04-12'
+                }
             ]
         }
     }

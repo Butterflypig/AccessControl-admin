@@ -191,6 +191,55 @@ export default {
 </script>
 <style scoped>
     .info-bg{
+        height: 850px;
+    }
+    .el-input{
+        width: 150px;
+    }
+    .search{
+        background-color: #314057;
+        padding: 10px 80px;
+        display: flex;
+        flex-flow: row nowrap;
+        color: white;
+    }
+    .el-button{
+        background-color: #639fa9;
+        border: #639fa9;
+        color: white;
+    }
+
+    .search>div:nth-child(2){
+        margin-left: 134px;
+    }
+    /* 内容部分 */
+   
+    .contain >div { 
+        padding-top: 40px;
+        margin-top: 15px;
+        height: 600px;
+        background: white;
+        position: relative;
+    }
+     .contain >div>h3{
+         font-weight: normal;
+         font-size: 28px;
+         color: #333333
+     }
+      .table{
+        
+        width: 98%;
+        margin: 20px auto;
+    }
+
+    /* 分页 */
+    .pagination{
+        position: absolute;
+        bottom: 20px;
+        left: 589px;
+    }
+</style>
+    .info-bg{
         background: #fff;
         height: 850px;
         padding: 25px;
@@ -199,7 +248,8 @@ export default {
         width: 150px;
     }
     .search{
-        background-color: #efefef;
+        background-color: #314057;
+        color: white;
         padding: 25px 80px;
         display: flex;
         flex-flow: row nowrap;
