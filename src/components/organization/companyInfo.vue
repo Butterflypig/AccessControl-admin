@@ -41,11 +41,11 @@
                 <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
             </div>
         </div>
-        <!-- <div>
+        <div>
             <el-button  @click="dialogFormVisible = true">
                 编辑
             </el-button>
-        </div> -->
+        </div>
 
 
         <el-dialog title="公司信息修改" :visible.sync="dialogFormVisible" center>

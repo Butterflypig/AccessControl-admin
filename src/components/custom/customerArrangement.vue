@@ -65,12 +65,18 @@
             <!-- 内容部分 -->
             <main class="contain">
                 <div>
-                    <h3>事项目录</h3>
+                    <h3>重点提示</h3>
                     <div class="table">
+                        
                         <el-table
                         :data="tableData"
                         border
                         style="width: 100%">
+                        <el-table-column
+                        prop="dynamic"
+                        label="客户"
+                        width="100">
+                        </el-table-column>
                         <el-table-column
                         prop="dynamic"
                         label="动态"
