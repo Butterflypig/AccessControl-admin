@@ -92,7 +92,21 @@ export default {
         }
     },
     methods: {
+        getCompanyData (){
+            this.$axios.get(this.$api.organization.getCompanyData).then(
+                res => {
+                    console.log(res);
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
 
+            )
+        }
+    },
+    created() {
+        this.getCompanyData();
     }
 }
 </script>

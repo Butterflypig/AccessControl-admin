@@ -64,7 +64,6 @@
                                 index: 'customerInfo',
                                 title: '客户信息'
                             },
-                           
                             {
                                 index: 'customerArrangement',
                                 title: '客户安排'
@@ -72,6 +71,18 @@
                             {
                                 index: 'visitingRecord',
                                 title: '到访日志'
+                            },
+                            {
+                                index: 'matter',
+                                title: '事项设置'
+                            },
+                            {
+                                index: 'tag',
+                                title: '标签设置'
+                            },
+                            {
+                                index: 'like',
+                                title: '兴趣点'
                             }
                         ]
                     },
@@ -96,13 +107,13 @@
                                 index: 'device',
                                 title: '设备管理'
                             }
-                            
+
                         ]
                     },
                     {
                         id: '7',
                         iconName: '#icon-shezhi',
-                        name: '系统设置',
+                        name: '常用设置',
                         items: [
                             {
                                 index: 'announcement',
@@ -123,7 +134,7 @@
                             {
                                 index: 'default',
                                 title: '默认设置'
-                            },
+                            }
                         ]
                     }
                 ]
@@ -152,9 +163,11 @@
 
 <style lang="less" scoped>
     @import "./../../assets/less/index";
-    .logo{
+
+    .logo {
         padding: 40px 0;
     }
+
     aside {
         height: 1080px;
         width: 224px;

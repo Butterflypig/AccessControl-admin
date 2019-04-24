@@ -11,21 +11,25 @@
                             <label for="userName">
                                 <img src="./../../../static/icon/zhanghao.png" alt="">
                             </label>
-                            <input id="userName" type="text" placeholder="点击输入账号"/>
+                            <input id="userName" v-model="form.UserAcount" autocomplete="off" type="text" placeholder="点击输入账号"/>
                         </div>
                         <div>
                             <label for="passWord">
                                 <img src="./../../../static/icon/mima.png" alt="">
                             </label>
-                            <input id="passWord" type="password" placeholder="点击输入密码"/>
+                            <input id="passWord" v-model="form.PassWord" autocomplete="off"  type="password" placeholder="点击输入密码"/>
                         </div>
                         <div>
                             <label for="verificationCode">
                                 <img src="./../../../static/icon/yanzhengma.png" alt="">
                             </label>
-                            <input id="verificationCode" type="text" placeholder="请输入验证码"/>
+                            <input id="verificationCode" v-model="form.Value" autocomplete="off" type="text" placeholder="请输入验证码"/>
+
                         </div>
-                        <button type="submit">登录</button>
+                        <div  class="loginCode" >
+                            <img @click="verificationCode" :src="loginCode" alt="验证码">
+                        </div>
+                        <button class="login" type="button" @click="login">登录</button>
                     </form>
                 </div>
             </div>
@@ -33,23 +37,68 @@
     </div>
 </template>
 <script>
+
+    import qs from 'qs'
 export default {
     data (){
         return {
-
+            loginCode: '',
+            form: {
+                UserAcount: '',
+                PassWord: '',
+                Value: ''
+            }
         }
     },
     methods: {
+
+        // 刷新验证码
+        verificationCode (){
+            this.loginCode = 'http://www.reception.com/api/v1/User/ProcessRequest?'+ Math.floor(Math.random() * 100);
+        },
+
+        // 用户登录
         login (){
-            
-        }
+            let obj = { };
+            obj.UserAcount = this.form.UserAcount;
+            obj.PassWord = this.form.PassWord;
+            obj.Value = this.form.Value;
+
+
+            this.$axios.post(this.$api.login.userLogin , qs.stringify( obj )).then(
+                res => {
+                    console.log(res);
+                    if ( res.data.Result ){
+                        this.$router.push({
+                            path:'/home'
+                        });
+                    }else {
+                        alert("账号或密码错误");
+                    }
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
+            )
+        },
+
     },
     created (){
-
+        this.verificationCode();
     }
 }
 </script>
 <style scoped>
+    .loginCode{
+        border: none;
+    }
+    .login:hover{
+        background-color: #fff;
+        color: #60a0a7;
+        transition: all .5s linear;
+    }
+
     .login-bg{
         width: 1920px;
         height: 1080px;

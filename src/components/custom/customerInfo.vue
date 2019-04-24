@@ -42,6 +42,7 @@
                     <div class="table">
                         <el-table
                         :data="tableData"
+                        @selection-change="selsChange"
                         border
                         style="width: 100%">
                             <el-table-column
@@ -271,6 +272,11 @@ export default {
         }
     },
     methods: {
+        // 多选
+        selsChange(sels) {
+            this.sels = sels;
+            console.log("多个选中",this.sels);
+        },
 
         // 打开新增
         openCreateModal (){
@@ -298,7 +304,7 @@ export default {
                 (error) => {
                     console.log(error);
                 }
-            )
+            );
 
             this.openNewModal = false;
         },

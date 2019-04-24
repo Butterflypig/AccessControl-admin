@@ -3,69 +3,69 @@
         <div class="info-bg">
 
             <!-- 搜索栏 -->
-            <div class="search">
-                <div>
-                <span>客户级别：</span>
-                <el-select v-model="value2" clearable  placeholder="请选择">
-                    <el-option
-                    v-for="item in options2"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                    :disabled="item.disabled">
-                    </el-option>
-                </el-select>
-                </div>
-                <div>
-                    <span>风险等级：</span>
-                    <el-select v-model="value2" clearable  placeholder="请选择">
-                        <el-option
-                        v-for="item in options2"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                        :disabled="item.disabled">
-                        </el-option>
-                    </el-select>
-                </div>
-                <div>
-                    <span>已开通业务：</span>
-                    <el-select v-model="value2" clearable  placeholder="请选择">
-                        <el-option
-                        v-for="item in options2"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                        :disabled="item.disabled">
-                        </el-option>
-                    </el-select>
-                </div>
-                <div>
-                    <span>交易频率：</span>
-                    <el-select v-model="value2" clearable  placeholder="请选择">
-                        <el-option
-                        v-for="item in options2"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                        :disabled="item.disabled">
-                        </el-option>
-                    </el-select>
-                </div>
-                <div>
-                    <el-input
-                    placeholder="请输入搜索内容"
-                    v-model="input10"
-                    clearable>
-                    </el-input>
-                    <el-button type="success">搜索</el-button>
-                </div> 
-            </div>
+            <!--<div class="search">-->
+                <!--<div>-->
+                <!--<span>客户级别：</span>-->
+                <!--<el-select v-model="value2" clearable  placeholder="请选择">-->
+                    <!--<el-option-->
+                    <!--v-for="item in options2"-->
+                    <!--:key="item.value"-->
+                    <!--:label="item.label"-->
+                    <!--:value="item.value"-->
+                    <!--:disabled="item.disabled">-->
+                    <!--</el-option>-->
+                <!--</el-select>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>风险等级：</span>-->
+                    <!--<el-select v-model="value2" clearable  placeholder="请选择">-->
+                        <!--<el-option-->
+                        <!--v-for="item in options2"-->
+                        <!--:key="item.value"-->
+                        <!--:label="item.label"-->
+                        <!--:value="item.value"-->
+                        <!--:disabled="item.disabled">-->
+                        <!--</el-option>-->
+                    <!--</el-select>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>已开通业务：</span>-->
+                    <!--<el-select v-model="value2" clearable  placeholder="请选择">-->
+                        <!--<el-option-->
+                        <!--v-for="item in options2"-->
+                        <!--:key="item.value"-->
+                        <!--:label="item.label"-->
+                        <!--:value="item.value"-->
+                        <!--:disabled="item.disabled">-->
+                        <!--</el-option>-->
+                    <!--</el-select>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>交易频率：</span>-->
+                    <!--<el-select v-model="value2" clearable  placeholder="请选择">-->
+                        <!--<el-option-->
+                        <!--v-for="item in options2"-->
+                        <!--:key="item.value"-->
+                        <!--:label="item.label"-->
+                        <!--:value="item.value"-->
+                        <!--:disabled="item.disabled">-->
+                        <!--</el-option>-->
+                    <!--</el-select>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<el-input-->
+                    <!--placeholder="请输入搜索内容"-->
+                    <!--v-model="input10"-->
+                    <!--clearable>-->
+                    <!--</el-input>-->
+                    <!--<el-button type="success">搜索</el-button>-->
+                <!--</div> -->
+            <!--</div>-->
 
             <!-- 内容部分 -->
             <main class="contain">
                 <div>
-                    <h3>重点提示</h3>
+                    <h3>客户安排</h3>
                     <div class="table">
                         
                         <el-table
@@ -74,15 +74,10 @@
                         style="width: 100%">
                         <el-table-column
                         prop="dynamic"
-                        label="客户"
+                        label="序号"
                         width="100">
                         </el-table-column>
                         <el-table-column
-                        prop="dynamic"
-                        label="动态"
-                        width="100">
-                        </el-table-column>
-                         <el-table-column
                         prop="dynamic"
                         label="标题"
                         width="100">
@@ -90,7 +85,12 @@
                          <el-table-column
                         prop="dynamic"
                         label="内容"
-                        width="100">
+                        width="300">
+                        </el-table-column>
+                         <el-table-column
+                        prop="dynamic"
+                        label="标签"
+                        width="500">
                         </el-table-column>
                         <el-table-column label="操作">
                             <template>

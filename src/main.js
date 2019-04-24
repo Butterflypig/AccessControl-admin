@@ -16,14 +16,14 @@ Vue.use(ElementUI);
 
 //  echarts
 import echarts from 'echarts'
-Vue.prototype.$echarts = echarts 
+Vue.prototype.$echarts = echarts;
 
 // axios
 import axios from 'axios'
 Vue.prototype.$axios = axios;
 
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
@@ -31,4 +31,4 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
-})
+});

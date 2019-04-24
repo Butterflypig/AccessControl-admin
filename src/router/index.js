@@ -86,7 +86,22 @@ export default new Router({
 					path: '/default',
 					name: 'default',
 					component: resolve => require(['./../components/setting/default.vue'],resolve)
-				}
+				},
+                {
+                    path: '/tag',
+                    name: 'tag',
+                    component: resolve => require(['./../components/custom/tag.vue'],resolve)
+                },
+                {
+                    path: '/matter',
+                    name: 'matter',
+                    component: resolve => require(['./../components/custom/matter.vue'],resolve)
+                },
+                {
+                    path: '/like',
+                    name: 'like',
+                    component: resolve => require(['./../components/custom/like.vue'],resolve)
+                }
 			]
 		},
 	]
