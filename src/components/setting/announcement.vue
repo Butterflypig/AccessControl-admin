@@ -38,19 +38,19 @@
                         style="width: 100%">
                             <el-table-column
                              align="center"
-                            prop="id"
+                            prop="Number"
                             label="序号"
                             width="150">
                             </el-table-column>
                             <el-table-column
                              align="center"
-                            prop="title"
+                            prop="Number"
                             label="标题"
                             width="200">
                             </el-table-column>
                             <el-table-column
                              align="center"
-                            prop="content"
+                            prop="Context"
                             label="内容"
                             width="200">
                             </el-table-column>
@@ -149,6 +149,26 @@ export default {
                 },
             ]
         }
+    },
+    methods: {
+
+        // 获取公告信息
+        getAnnouncementData () {
+            this.$axios.get(this.$api.commonly.getAnnouncementData).then(
+                res => {
+                    console.log("获取公告信息",res);
+
+                    this.tableData = res.data.Data.PageData
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
+            )
+        }
+    },
+    created() {
+        this.getAnnouncementData()
     }
 }
 </script>

@@ -107,6 +107,7 @@
                                     <el-button
                                     size="mini"
                                     type="danger"
+                                    @click="handleDelete(scope.$index, scope.row)"
                                     >删除</el-button>
                                 </template>
                             </el-table-column>
@@ -124,7 +125,7 @@
 
                     <!-- 新增的模态框 -->
                     <div class="module">
-                        <el-dialog title="编辑" :visible.sync="openNewModal" center width='80%' >
+                        <el-dialog title="新增" :visible.sync="openNewModal" center width='70%' >
                             <el-form label-width="80px" :model="moduleDataNew" size="mini">
                                 <el-row>
                                     <el-col :span="6">
@@ -158,7 +159,7 @@
                                             </el-col>
                                             <el-col :span="8">
                                                 <el-form-item label="职业">
-                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                    <el-input v-model="moduleDataNew.Profession" autocomplete="off"></el-input>
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :span="8">
@@ -170,7 +171,7 @@
                                         <el-row>
                                             <el-col :span="8">
                                                 <el-form-item label="e-mail">
-                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                    <el-input v-model="moduleDataNew.Email" autocomplete="off"></el-input>
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :span="8">
@@ -180,24 +181,24 @@
                                             </el-col>
                                             <el-col :span="8">
                                                 <el-form-item label="称呼">
-                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                    <el-input v-model="moduleDataNew.Title" autocomplete="off"></el-input>
                                                 </el-form-item>
                                             </el-col>
                                         </el-row>
                                             <el-row>
                                             <el-col :span="8">
                                                 <el-form-item label="级别">
-                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                    <el-input v-model="moduleDataNew.Important" autocomplete="off"></el-input>
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :span="8">
                                                 <el-form-item label="身份证号">
-                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                    <el-input v-model="moduleDataNew.IDCardNO" autocomplete="off"></el-input>
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :span="8">
                                                 <el-form-item label="居住地">
-                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                    <el-input v-model="moduleDataNew.Address" autocomplete="off"></el-input>
                                                 </el-form-item>
                                             </el-col>
                                         </el-row>
@@ -219,35 +220,85 @@
 
                     <!-- 编辑的模态框 -->
                     <div class="module">
-                        <el-dialog title="编辑" :visible.sync="dialogFormVisible" center width='30%' >
+                        <el-dialog title="编辑" :visible.sync="dialogFormVisible" center width='70%' >
                             <el-form label-width="80px" :model="moduleData" size="mini">
-                                <div class="photo" align="center">
-                                    <img src="./../../../static/images/photo.jpg" alt="头像">
-                                </div>
-                                <el-form-item label="姓名">
-                                    <el-input v-model="moduleData.Name" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="身份证号">
-                                    <el-input v-model="moduleData.IDCardNO" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="联系方式">
-                                    <el-input v-model="moduleData.Phone" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="住址">
-                                    <el-input v-model="moduleData.Address" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="级别">
-                                    <el-input v-model="moduleData.Important" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="性别">
-                                    <el-input v-model="moduleData.Sex" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="推荐内容" >
-                                    <el-input disabled v-model="moduleData.Sex" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="资料状态">
-                                    <el-input v-model="moduleData.Status" autocomplete="off"></el-input>
-                                </el-form-item>
+                                <el-row>
+                                    <el-col :span="6">
+                                        <div class="photo" align="center">
+                                            <img src="./../../../static/images/photo.jpg" alt="头像">
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="18">
+                                        <el-row>
+                                            <el-col :span="8">
+                                                <el-form-item label="姓名">
+                                                    <el-input v-model="moduleData.Name" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="性别">
+                                                    <el-input v-model="moduleData.Sex" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                    <!--<el-form-item label="年龄">-->
+                                                        <!--<el-input v-model="moduleData.Age" autocomplete="off"></el-input>-->
+                                                    <!--</el-form-item>-->
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="8">
+                                                <el-form-item label="联系方式">
+                                                    <el-input v-model="moduleData.Phone" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="职业">
+                                                    <el-input v-model="moduleData.Profession" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="学历">
+                                                    <el-input v-model="moduleData.Phone" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="8">
+                                                <el-form-item label="e-mail">
+                                                    <el-input v-model="moduleData.Email" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="特征">
+                                                    <el-input v-model="moduleData.Phone" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="称呼">
+                                                    <el-input v-model="moduleData.Title" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="8">
+                                                <el-form-item label="级别">
+                                                    <el-input v-model="moduleData.Important" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="身份证号">
+                                                    <el-input v-model="moduleData.IDCardNO" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="居住地">
+                                                    <el-input v-model="moduleData.Address" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                        </el-row>
+                                    </el-col>
+                                </el-row>
                                 <el-form-item label="兴趣点">
                                     <el-input v-model="moduleData.Sex" autocomplete="off"></el-input>
                                 </el-form-item>
@@ -257,7 +308,7 @@
                             </el-form>
                             <div slot="footer" class="dialog-footer">
                                 <el-button @click="dialogFormVisible = false">取 消</el-button>
-                                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                                <el-button type="primary" @click="editData">确 定</el-button>
                             </div>
                         </el-dialog>
                     </div>            
@@ -275,8 +326,8 @@ export default {
     data () {
         return{
             sels: [],//选中的值显示
-            openNewModal: true, //新增模态框的开关
-            dialogFormVisible: false,
+            openNewModal: false, //新增模态框的开关
+            dialogFormVisible: false, //编辑模态框的开关
             formLabelWidth: '180',
             input10: '',
             value2: '',
@@ -301,21 +352,27 @@ export default {
             tableData: [],
             moduleData: {
                 Name: '',
-                IDCardNO: '',
-                Phone: '',
-                Address: '',
-                Important: '',
                 Sex: '',
+                Phone: '',
+                Profession: '',
+                Email: '',
+                Important: '',
+                IDCardNO: '',
+                Address: '',
+                Title: '',
                 Status: '',
                 Tag: ''
             },
             moduleDataNew: {
                 Name: '',
-                IDCardNO: '',
-                Phone: '',
-                Address: '',
-                Important: '',
                 Sex: '',
+                Phone: '',
+                Profession: '',
+                Email: '',
+                Important: '',
+                IDCardNO: '',
+                Address: '',
+                Title: '',
                 Status: '',
                 Tag: ''
             }
@@ -337,17 +394,35 @@ export default {
         createData (){
             let obj = {};
             obj.Name= this.moduleDataNew.Name;
-            obj.IDCardNO= this.moduleDataNew.IDCardNO;
-            obj.Phone= this.moduleDataNew.Phone;
-            obj.Address= this.moduleDataNew.Address;
-            obj.Important= this.moduleDataNew.Important;
             obj.Sex= this.moduleDataNew.Sex;
-            obj.Status= this.moduleDataNew.Status;
-            obj.Tag= this.moduleDataNew.Tag;
-            
+            obj.Phone= this.moduleDataNew.Phone;
+            obj.Profession= this.moduleDataNew.Profession;
+            obj.Email= this.moduleDataNew.Email;
+            obj.Important= this.moduleDataNew.Important;
+            obj.IDCardNO= this.moduleDataNew.IDCardNO;
+            obj.Address= this.moduleDataNew.Address;
+            obj.Title= this.moduleDataNew.Title;
+
+            // obj.Status= this.moduleDataNew.Status;
+            // obj.Tag= this.moduleDataNew.Tag;
+
             this.$axios.post('http://www.reception.com/api/v1/Custom/Put', qs.stringify(obj)).then(
                 (res) => {
-                    console.log(res);
+                    console.log("确认新增：",res);
+
+                    if ( res.data.Result ){
+                        this.$message({
+                            type: 'success',
+                            message: '添加成功!'
+                        });
+                    } else {
+                        this.$message({
+                            type: 'warning',
+                            message: '添加失败!'
+                        });
+                    }
+
+                    //重新渲染数据
                     this.getCustomerData();
                 }
             ).catch(
@@ -364,27 +439,139 @@ export default {
             console.log(index, row);
 
             this.moduleData.Name = row.Name;
-            this.moduleData.IDCardNO = row.IDCardNO;
-            this.moduleData.Phone = row.Phone;
-            this.moduleData.Address = row.Address;
-            this.moduleData.Important = row.Important;
             this.moduleData.Sex = row.Sex;
+            this.moduleData.Phone = row.Phone;
+            this.moduleData.Profession = row.Profession;
+            this.moduleData.Email = row.Email;
+            this.moduleData.Important = row.Important;
+            this.moduleData.IDCardNO = row.IDCardNO;
+            this.moduleData.Address = row.Address;
+            this.moduleData.Title = row.Title;
+
             this.moduleData.Status = row.Status;
             this.moduleData.Tag = row.Tag;
             console.log(this.moduleData.Name);
             this.dialogFormVisible = true;
         },
-        
+
+        // 确认编辑
+        editData() {
+            let obj = {};
+            obj.Name= this.moduleDataNew.Name;
+            obj.Sex= this.moduleDataNew.Sex;
+            obj.Phone= this.moduleDataNew.Phone;
+            obj.Profession= this.moduleDataNew.Profession;
+            obj.Email= this.moduleDataNew.Email;
+            obj.Important= this.moduleDataNew.Important;
+            obj.IDCardNO= this.moduleDataNew.IDCardNO;
+            obj.Address= this.moduleDataNew.Address;
+            obj.Title= this.moduleDataNew.Title;
+
+
+            this.$axios.post('http://www.reception.com/api/v1/Custom/Put', qs.stringify(obj)).then(
+                (res) => {
+                    console.log("确认编辑：",res);
+                    this.getCustomerData();
+                }
+            ).catch(
+                (error) => {
+                    console.log(error);
+                }
+            );
+
+            this.dialogFormVisible = false;
+
+        },
+
         // 批量删除
         deleteDataBatch (){
+            let ids = this.sels.map(item => item.id).join();
 
+            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning',
+                center: true
+            }).then(() => {
+                let ids = [ ];
+                ids.push(row.Number);
+                console.log("ids",ids);
+                this.$axios.post( this.$api.customer.delCustomerData, "ids =" + ids ).then(
+                    (res) => {
+                        console.log("批量删除：",res);
+                        if ( res.data.Result ){
+                            this.$message({
+                                type: 'success',
+                                message: '批量删除成功!'
+                            });
+                        } else {
+                            this.$message({
+                                type: 'warning',
+                                message: '批量删除失败!'
+                            });
+                        }
+                        this.getCustomerData();
+                    }
+                ).catch(
+                    (error) => {
+                        console.log(error);
+                    }
+                );
+
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
+        },
+        //单个删除数据
+        handleDelete(index, row) {
+            console.log("id", row.Number);
+            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning',
+                center: true
+            }).then(() => {
+                let ids = [ ];
+                ids.push(row.Number);
+                console.log("ids",ids);
+                this.$axios.post( this.$api.customer.delCustomerData, "ids =" + ids ).then(
+                    (res) => {
+                        console.log("单个删除数据：",res);
+                        if ( res.data.Result ){
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        } else {
+                            this.$message({
+                                type: 'warning',
+                                message: '删除失败!'
+                            });
+                        }
+                        this.getCustomerData();
+                    }
+                ).catch(
+                    (error) => {
+                        console.log(error);
+                    }
+                );
+
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
         },
 
         // 加载初始数据
         getCustomerData(){
             this.$axios.get('http://www.reception.com/api/v1/Custom/GetPageList').then(
                 res => {
-                    console.log(res);
+                    console.log("加载初始数据：",res);
                     this.tableData = res.data.Data.PageData;
                 }
             ).catch(

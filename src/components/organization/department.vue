@@ -160,6 +160,25 @@ export default {
                 },
             ]
         }
+    },
+    methods: {
+
+        // 获取部门信息
+        getAnnouncementData () {
+            this.$axios.get( this.$api.department.getDepartmentData ).then(
+                res => {
+                    console.log("获取部门信息",res);
+                    this.tableData = res.data.Data;
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
+            )
+        }
+    },
+    created() {
+        this.getAnnouncementData()
     }
 }
 </script>

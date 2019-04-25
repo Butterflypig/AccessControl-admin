@@ -16,7 +16,11 @@
 
 		<!-- 面包屑导航 -->
 		<div>
-
+            {{count}}
+            {{customerList}}
+            <el-button @click="add">添加</el-button>
+            <el-button @click="sub">减少</el-button>
+            <el-button @click="setProduct">获取</el-button>
 		</div>
       </header>
 	  
@@ -24,8 +28,21 @@
 </template>
 
 <script>
+
+    import { mapGetters,mapActions } from 'vuex'
     export default {
-        name: "Header"
+        name: "Header",
+        data () {
+            return {
+
+            }
+        },
+        computed: {
+            ...mapGetters( ['count','customerList'] )
+        },
+        methods: {
+            ...mapActions( ['add','sub','setProduct'])
+        }
     }
 </script>
 

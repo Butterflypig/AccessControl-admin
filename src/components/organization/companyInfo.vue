@@ -41,11 +41,11 @@
                 <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
             </div>
         </div>
-        <div>
-            <el-button  @click="dialogFormVisible = true">
-                编辑
-            </el-button>
-        </div>
+        <!--<div>-->
+            <!--<el-button  @click="dialogFormVisible = true">-->
+                <!--编辑-->
+            <!--</el-button>-->
+        <!--</div>-->
 
 
         <el-dialog title="公司信息修改" :visible.sync="dialogFormVisible" center>
@@ -92,10 +92,12 @@ export default {
         }
     },
     methods: {
+
+        //获取公司信息
         getCompanyData (){
-            this.$axios.get(this.$api.organization.getCompanyData).then(
+            this.$axios.get(this.$api.companyInfo.getAnnouncementData).then(
                 res => {
-                    console.log(res);
+                    console.log("获取公司信息",res);
                 }
             ).catch(
                 err => {
