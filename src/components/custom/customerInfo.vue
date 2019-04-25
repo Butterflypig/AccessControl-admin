@@ -124,35 +124,85 @@
 
                     <!-- 新增的模态框 -->
                     <div class="module">
-                        <el-dialog title="编辑" :visible.sync="openNewModal" center width='30%' >
+                        <el-dialog title="编辑" :visible.sync="openNewModal" center width='80%' >
                             <el-form label-width="80px" :model="moduleDataNew" size="mini">
-                                <div class="photo" align="center">
-                                    <img src="./../../../static/images/photo.jpg" alt="头像">
-                                </div>
-                                <el-form-item label="姓名">
-                                    <el-input v-model="moduleDataNew.Name" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="身份证号">
-                                    <el-input v-model="moduleDataNew.IDCardNO" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="联系方式">
-                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="住址">
-                                    <el-input v-model="moduleDataNew.Address" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="级别">
-                                    <el-input v-model="moduleDataNew.Important" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="性别">
-                                    <el-input v-model="moduleDataNew.Sex" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="推荐内容" >
-                                    <el-input disabled v-model="moduleDataNew.Sex" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="资料状态">
-                                    <el-input v-model="moduleDataNew.Status" autocomplete="off"></el-input>
-                                </el-form-item>
+                                <el-row>
+                                    <el-col :span="6">
+                                        <div class="photo" align="center">
+                                            <img src="./../../../static/images/photo.jpg" alt="头像">
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="18">
+                                        <el-row>
+                                            <el-col :span="8">
+                                                <el-form-item label="姓名">
+                                                    <el-input v-model="moduleDataNew.Name" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="性别">
+                                                    <el-input v-model="moduleDataNew.Sex" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="年龄">
+                                                    <el-input v-model="moduleDataNew.Sex" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="8">
+                                                <el-form-item label="联系方式">
+                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="职业">
+                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="学历">
+                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="8">
+                                                <el-form-item label="e-mail">
+                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="特征">
+                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="称呼">
+                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                        </el-row>
+                                            <el-row>
+                                            <el-col :span="8">
+                                                <el-form-item label="级别">
+                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="身份证号">
+                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-form-item label="居住地">
+                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                        </el-row>
+                                    </el-col>
+                                </el-row>
                                 <el-form-item label="兴趣点">
                                     <el-input v-model="moduleDataNew.Sex" autocomplete="off"></el-input>
                                 </el-form-item>
@@ -225,7 +275,7 @@ export default {
     data () {
         return{
             sels: [],//选中的值显示
-            openNewModal: false, //新增模态框的开关
+            openNewModal: true, //新增模态框的开关
             dialogFormVisible: false,
             formLabelWidth: '180',
             input10: '',
