@@ -38,10 +38,12 @@
 </template>
 <script>
 
-    import qs from 'qs'
+import qs from 'qs'
+import { mapMutations } from 'vuex'
 export default {
     data (){
         return {
+            loginToken: '',
             loginCode: '',
             form: {
                 UserAcount: '',
@@ -51,6 +53,7 @@ export default {
         }
     },
     methods: {
+        ...mapMutations( ['changeLogin'] ),
 
         // 刷新验证码
         verificationCode (){
@@ -69,6 +72,12 @@ export default {
                 res => {
                     console.log(res);
                     if ( res.data.Result ){
+                        console.log("登录成功");
+                        this.loginToken = 'Basic ' +res.data.Data;
+                        console.log(this.loginToken);
+
+                        this.changeLogin( { Authorization: this.loginToken } )
+
                         this.$router.push({
                             path:'/home'
                         });

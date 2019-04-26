@@ -29,7 +29,7 @@
                         clearable>
                         </el-input>
                     </el-col>
-                    <el-button style="height: 40px" type="success">搜索</el-button>
+                    <el-button style="height: 40px" type="success" @click="search">搜索</el-button>
                     
                 </div> 
             </div>
@@ -379,6 +379,35 @@ export default {
         }
     },
     methods: {
+
+        //搜索
+        search (){
+            // let obj = {  };
+            // obj.name = '测试';
+            // obj.Status = 2;
+            // obj.pageIndex = 1;
+            // obj.pageSize = 20;
+            //
+            // console.log(obj);
+
+            this.$axios.get( this.$api.customer.getCustomerData, {
+                params: {
+                    name: '测试',
+                    Status: 2,
+                    pageIndex: 1,
+                    pageSize: 20
+                }
+            } ).then(
+                res => {
+                    console.log( "搜索结果" ,res);
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
+            )
+        },
+
         // 多选
         selsChange(sels) {
             this.sels = sels;
@@ -403,8 +432,8 @@ export default {
             obj.Address= this.moduleDataNew.Address;
             obj.Title= this.moduleDataNew.Title;
 
-            // obj.Status= this.moduleDataNew.Status;
-            // obj.Tag= this.moduleDataNew.Tag;
+            obj.Status = '';
+            obj.Tag = '';
 
             this.$axios.post('http://www.reception.com/api/v1/Custom/Put', qs.stringify(obj)).then(
                 (res) => {
@@ -494,7 +523,7 @@ export default {
                 center: true
             }).then(() => {
                 let ids = [ ];
-                ids.push(row.Number);
+                ids.push(row.CustID);
                 console.log("ids",ids);
                 this.$axios.post( this.$api.customer.delCustomerData, "ids =" + ids ).then(
                     (res) => {
@@ -526,18 +555,22 @@ export default {
             });
         },
         //单个删除数据
+
         handleDelete(index, row) {
             console.log("id", row.Number);
-            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning',
-                center: true
-            }).then(() => {
-                let ids = [ ];
-                ids.push(row.Number);
+
+
+            // this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+            //     confirmButtonText: '确定',
+            //     cancelButtonText: '取消',
+            //     type: 'warning',
+            //     center: true
+            // }).then(() => {
+                let ids = "sss";
+                //ids.push(row.Number);   //qs.stringify( { ids }, { indices: false } )
                 console.log("ids",ids);
-                this.$axios.post( this.$api.customer.delCustomerData, "ids =" + ids ).then(
+
+                this.$axios.post( this.$api.customer.delCustomerData, 'ids = '+ids  ).then(
                     (res) => {
                         console.log("单个删除数据：",res);
                         if ( res.data.Result ){
@@ -559,12 +592,12 @@ export default {
                     }
                 );
 
-            }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '已取消删除'
-                });
-            });
+            // }).catch(() => {
+            //     this.$message({
+            //         type: 'info',
+            //         message: '已取消删除'
+            //     });
+            // });
         },
 
         // 加载初始数据

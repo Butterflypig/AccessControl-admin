@@ -4,6 +4,7 @@ Vue.use(Vuex);
 
 //定义状态
 let state = {
+    Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
     count: 6,
     customerList: []
 };
@@ -22,16 +23,16 @@ let getters = {
 //写相关流程或异步请求
 let actions = {
     setProduct (){
-      this.$axios.get( this.$api.customer.getCustomerData ).then(
-          res => {
-              console.log(res);
-          }
-      ).catch(
-          err => {
-              console.log(err);
-              commit('getCustomerData',res);
-          }
-      )
+          this.$axios.get( this.$api.customer.getCustomerData ).then(
+              res => {
+                  console.log(res);
+              }
+          ).catch(
+              err => {
+                  console.log(err);
+                  commit('getCustomerData',res);
+              }
+          )
     },
 
     add ( {commit,state} ){
@@ -52,6 +53,10 @@ let mutations = {
     },
     getCustomerData ( res ) {
         state.customerList = res;
+    },
+    changeLogin (state, user) {
+        state.Authorization = user.Authorization;
+        localStorage.setItem('Authorization', user.Authorization);
     }
 };
 

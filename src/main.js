@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios'
 
 //vuex
 import store from './store'
@@ -11,6 +12,19 @@ import store from './store'
 import api from './api/api'
 axios.defaults.baseURL = 'http://www.reception.com';
 Vue.prototype.$api = api;
+
+// 添加请求拦截器，在请求头中加token
+axios.interceptors.request.use(
+    config => {
+        if (localStorage.getItem('Authorization')) {
+            config.headers['Authorization'] = localStorage.getItem('Authorization');
+        }
+
+        return config;
+    },
+    error => {
+        return Promise.reject(error);
+    });
 
 // ElementUI
 import ElementUI from 'element-ui';
@@ -22,8 +36,14 @@ import echarts from 'echarts'
 Vue.prototype.$echarts = echarts;
 
 // axios
-import axios from 'axios'
 Vue.prototype.$axios = axios;
+
+
+
+
+
+
+
 
 
 Vue.config.productionTip = false;
