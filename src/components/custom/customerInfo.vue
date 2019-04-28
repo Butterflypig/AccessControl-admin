@@ -114,11 +114,22 @@
                         </el-table>
 
                         <!-- 分页 -->
-                        <div class="pagination">
+                        <div>
+                            <!--<el-pagination-->
+                            <!--background-->
+                            <!--layout="prev, pager, next"-->
+                            <!--:total="total">-->
+                            <!--</el-pagination>    -->
+
                             <el-pagination
-                            background
-                            layout="prev, pager, next"
-                            :total="1000">
+                                background
+                                @size-change="handleSizeChange"
+                                @current-change="handleCurrentChange"
+                                :current-page="currentPage4"
+                                :page-sizes="[7, 8, 9, 10]"
+                                :page-size="size"
+                                layout="total, sizes, prev, pager, next, jumper"
+                                :total="total">
                             </el-pagination>
                         </div>
                     </div>
@@ -147,7 +158,7 @@
                                             </el-col>
                                             <el-col :span="8">
                                                 <el-form-item label="年龄">
-                                                    <el-input v-model="moduleDataNew.Sex" autocomplete="off"></el-input>
+                                                    <el-input v-model="moduleDataNew.Age" autocomplete="off"></el-input>
                                                 </el-form-item>
                                             </el-col>
                                         </el-row>
@@ -163,9 +174,9 @@
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :span="8">
-                                                <el-form-item label="学历">
-                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
-                                                </el-form-item>
+                                                <!--<el-form-item label="学历">-->
+                                                    <!--<el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>-->
+                                                <!--</el-form-item>-->
                                             </el-col>
                                         </el-row>
                                         <el-row>
@@ -175,9 +186,9 @@
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :span="8">
-                                                <el-form-item label="特征">
-                                                    <el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>
-                                                </el-form-item>
+                                                <!--<el-form-item label="特征">-->
+                                                    <!--<el-input v-model="moduleDataNew.Phone" autocomplete="off"></el-input>-->
+                                                <!--</el-form-item>-->
                                             </el-col>
                                             <el-col :span="8">
                                                 <el-form-item label="称呼">
@@ -241,9 +252,9 @@
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :span="8">
-                                                    <!--<el-form-item label="年龄">-->
-                                                        <!--<el-input v-model="moduleData.Age" autocomplete="off"></el-input>-->
-                                                    <!--</el-form-item>-->
+                                                    <el-form-item label="年龄">
+                                                        <el-input v-model="moduleData.Age" autocomplete="off"></el-input>
+                                                    </el-form-item>
                                             </el-col>
                                         </el-row>
                                         <el-row>
@@ -258,8 +269,8 @@
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :span="8">
-                                                <el-form-item label="学历">
-                                                    <el-input v-model="moduleData.Phone" autocomplete="off"></el-input>
+                                                <el-form-item label="状态">
+                                                    <el-input v-model="moduleData.Status" autocomplete="off"></el-input>
                                                 </el-form-item>
                                             </el-col>
                                         </el-row>
@@ -325,6 +336,9 @@ import qs from 'qs'
 export default {
     data () {
         return{
+            currentPage4: 1,
+            size: 10,
+            total: 0,
             sels: [],//选中的值显示
             openNewModal: false, //新增模态框的开关
             dialogFormVisible: false, //编辑模态框的开关
@@ -351,21 +365,25 @@ export default {
             ],
             tableData: [],
             moduleData: {
+                CustID: '',
                 Name: '',
                 Sex: '',
+                Age: '',
                 Phone: '',
                 Profession: '',
+                Status: '',
                 Email: '',
                 Important: '',
                 IDCardNO: '',
                 Address: '',
                 Title: '',
-                Status: '',
+                InterID: '',
                 Tag: ''
             },
             moduleDataNew: {
                 Name: '',
                 Sex: '',
+                Age: '',
                 Phone: '',
                 Profession: '',
                 Email: '',
@@ -373,33 +391,56 @@ export default {
                 IDCardNO: '',
                 Address: '',
                 Title: '',
-                Status: '',
+                InterID: '',
                 Tag: ''
             }
         }
     },
     methods: {
 
+        //点击哪页显示哪条
+        handleCurrentChange(val) {
+            console.log(`当前页: ${val}`);
+
+            this.$axios.get(this.$api.customer.getCustomerData, {
+                params: {
+                    Status : 0,
+                    name : '',
+                    pageSize : this.size,
+                    pageIndex : val,
+                }
+            } ).then(
+                res => {
+                    console.log("加载初始数据：",res);
+                    this.tableData = res.data.Data.PageData;
+                    this.total = res.data.Data.TotalCount;
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
+            )
+        },
+
+        //定义每页多少条
+        handleSizeChange(val) {
+            console.log(`每页 ${val} 条`);
+            this.size = val;
+        },
+
         //搜索
         search (){
-            // let obj = {  };
-            // obj.name = '测试';
-            // obj.Status = 2;
-            // obj.pageIndex = 1;
-            // obj.pageSize = 20;
-            //
-            // console.log(obj);
-
             this.$axios.get( this.$api.customer.getCustomerData, {
                 params: {
-                    name: '测试',
-                    Status: 2,
+                    name: 'Lucy',
+                    Status: 5   ,
                     pageIndex: 1,
                     pageSize: 20
                 }
             } ).then(
                 res => {
                     console.log( "搜索结果" ,res);
+                    this.tableData = res.data.Data.PageData;
                 }
             ).catch(
                 err => {
@@ -419,21 +460,22 @@ export default {
             this.openNewModal = true;
         },
 
-        // 确认新增
+        // 新增
         createData (){
             let obj = {};
-            obj.Name= this.moduleDataNew.Name;
-            obj.Sex= this.moduleDataNew.Sex;
-            obj.Phone= this.moduleDataNew.Phone;
-            obj.Profession= this.moduleDataNew.Profession;
-            obj.Email= this.moduleDataNew.Email;
-            obj.Important= this.moduleDataNew.Important;
-            obj.IDCardNO= this.moduleDataNew.IDCardNO;
-            obj.Address= this.moduleDataNew.Address;
-            obj.Title= this.moduleDataNew.Title;
+            obj.Name = this.moduleDataNew.Name;
+            obj.Sex = this.moduleDataNew.Sex;
+            obj.Age = this.moduleDataNew.Age;
+            obj.Phone = this.moduleDataNew.Phone;
+            obj.Profession = this.moduleDataNew.Profession;
+            obj.Email = this.moduleDataNew.Email;
+            obj.Important = this.moduleDataNew.Important;
+            obj.IDCardNO = this.moduleDataNew.IDCardNO;
+            obj.Address = this.moduleDataNew.Address;
+            obj.Title = this.moduleDataNew.Title;
 
-            obj.Status = '';
-            obj.Tag = '';
+            obj.InterID = '1|2';
+            obj.Tags = '1|2';
 
             this.$axios.post('http://www.reception.com/api/v1/Custom/Put', qs.stringify(obj)).then(
                 (res) => {
@@ -463,43 +505,78 @@ export default {
             this.openNewModal = false;
         },
 
+        //获取编辑的内容
+        getEditData (id){
+            this.$axios.get(this.$api.customer.getEditData+'?id='+ id ).then(
+                res => {
+                    console.log('编辑的内容:',res);
+                    this.moduleData.CustID = res.data.Data.info.CustID;
+                    this.moduleData.Name = res.data.Data.info.Name;
+                    this.moduleData.Sex = res.data.Data.info.Sex;
+                    this.moduleData.Age = res.data.Data.info.Age;
+                    this.moduleData.Phone = res.data.Data.info.Phone;
+                    this.moduleData.Profession = res.data.Data.info.Profession;
+                    this.moduleData.Status = res.data.Data.info.Status;
+                    this.moduleData.Email = res.data.Data.info.Email;
+                    this.moduleData.Important = res.data.Data.info.Important;
+                    this.moduleData.IDCardNO = res.data.Data.info.IDCardNO;
+                    this.moduleData.Address = res.data.Data.info.Address;
+                    this.moduleData.Title = res.data.Data.info.Title;
+                    this.moduleData.InterID = res.data.Data.info.InterID;
+                    this.moduleData.Tag = res.data.Data.info.Tag;
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
+            )
+
+        },
+
         //打开编辑
         handleEdit(index, row) {
             console.log(index, row);
+            this.getEditData( row.CustID );
 
-            this.moduleData.Name = row.Name;
-            this.moduleData.Sex = row.Sex;
-            this.moduleData.Phone = row.Phone;
-            this.moduleData.Profession = row.Profession;
-            this.moduleData.Email = row.Email;
-            this.moduleData.Important = row.Important;
-            this.moduleData.IDCardNO = row.IDCardNO;
-            this.moduleData.Address = row.Address;
-            this.moduleData.Title = row.Title;
-
-            this.moduleData.Status = row.Status;
-            this.moduleData.Tag = row.Tag;
-            console.log(this.moduleData.Name);
             this.dialogFormVisible = true;
         },
 
         // 确认编辑
         editData() {
             let obj = {};
-            obj.Name= this.moduleDataNew.Name;
-            obj.Sex= this.moduleDataNew.Sex;
-            obj.Phone= this.moduleDataNew.Phone;
-            obj.Profession= this.moduleDataNew.Profession;
-            obj.Email= this.moduleDataNew.Email;
-            obj.Important= this.moduleDataNew.Important;
-            obj.IDCardNO= this.moduleDataNew.IDCardNO;
-            obj.Address= this.moduleDataNew.Address;
-            obj.Title= this.moduleDataNew.Title;
+            obj.ID = this.moduleData.CustID;
+            obj.Name = this.moduleData.Name;
+            obj.Sex = this.moduleData.Sex;
+            obj.Age = this.moduleData.Age;
+            obj.Phone = this.moduleData.Phone;
+            obj.Profession = this.moduleData.Profession;
+            obj.Status = this.moduleData.Status;
+            obj.Email = this.moduleData.Email;
+            obj.Important = this.moduleData.Important;
+            obj.IDCardNO = this.moduleData.IDCardNO;
+            obj.Address = this.moduleData.Address;
+            obj.Title = this.moduleData.Title;
 
+            obj.InterID = '1|2';
+            obj.Tags = '1|2';
 
             this.$axios.post('http://www.reception.com/api/v1/Custom/Put', qs.stringify(obj)).then(
                 (res) => {
                     console.log("确认编辑：",res);
+
+                    if ( res.data.Result ){
+                        this.$message({
+                            type: 'success',
+                            message: '编辑成功!'
+                        });
+                    } else {
+                        this.$message({
+                            type: 'warning',
+                            message: '编辑失败!'
+                        });
+                    }
+
+                    //重新渲染数据
                     this.getCustomerData();
                 }
             ).catch(
@@ -514,18 +591,17 @@ export default {
 
         // 批量删除
         deleteDataBatch (){
-            let ids = this.sels.map(item => item.id).join();
+            let ids = this.sels.map(item => item.CustID).join('|');
+            console.log("aaaaaa",ids);
 
-            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+            this.$confirm('是否删除选中文件', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning',
                 center: true
             }).then(() => {
-                let ids = [ ];
-                ids.push(row.CustID);
-                console.log("ids",ids);
-                this.$axios.post( this.$api.customer.delCustomerData, "ids =" + ids ).then(
+
+                this.$axios.post( this.$api.customer.delCustomerData, "ids=" + ids ).then(
                     (res) => {
                         console.log("批量删除：",res);
                         if ( res.data.Result ){
@@ -554,23 +630,20 @@ export default {
                 });
             });
         },
+
         //单个删除数据
-
         handleDelete(index, row) {
-            console.log("id", row.Number);
+            console.log("id", row.CustID);
 
 
-            // this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-            //     confirmButtonText: '确定',
-            //     cancelButtonText: '取消',
-            //     type: 'warning',
-            //     center: true
-            // }).then(() => {
-                let ids = "sss";
-                //ids.push(row.Number);   //qs.stringify( { ids }, { indices: false } )
-                console.log("ids",ids);
+            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning',
+                center: true
+            }).then(() => {
 
-                this.$axios.post( this.$api.customer.delCustomerData, 'ids = '+ids  ).then(
+                this.$axios.post( this.$api.customer.delCustomerData, 'ids='+ row.CustID ).then(
                     (res) => {
                         console.log("单个删除数据：",res);
                         if ( res.data.Result ){
@@ -592,29 +665,28 @@ export default {
                     }
                 );
 
-            // }).catch(() => {
-            //     this.$message({
-            //         type: 'info',
-            //         message: '已取消删除'
-            //     });
-            // });
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
         },
 
         // 加载初始数据
         getCustomerData(){
-            this.$axios.get('http://www.reception.com/api/v1/Custom/GetPageList').then(
+            this.$axios.get(this.$api.customer.getCustomerData).then(
                 res => {
                     console.log("加载初始数据：",res);
                     this.tableData = res.data.Data.PageData;
+                    this.total = res.data.Data.TotalCount;
                 }
             ).catch(
                 err => {
                     console.log(err);
-                    
                 }
             )
         }
-
     },
     created () {
         this.getCustomerData();
@@ -649,7 +721,7 @@ export default {
     .contain >div { 
         padding-top: 40px;
         margin-top: 15px;
-        height: 600px;
+        height: 800px;
         background: white;
         position: relative;
     }
@@ -665,7 +737,7 @@ export default {
     }
 
     /* 分页 */
-    .pagination{
+    .el-pagination{
         position: absolute;
         bottom: 20px;
         left: 589px;

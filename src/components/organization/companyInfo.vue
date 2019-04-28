@@ -18,22 +18,22 @@
             </div> -->
             <el-form :model="form" >
                 <el-form-item label="公司名称：" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="off"  placeholder="请输入公司名称"></el-input>
+                    <el-input v-model="form.FullName" autocomplete="off"  placeholder="请输入公司名称"></el-input>
                 </el-form-item>
                 <el-form-item label="联系人：" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="off" placeholder="请输入企业类型"></el-input>
+                    <el-input v-model="form.LinkMan" autocomplete="off" placeholder="请输入企业类型"></el-input>
                 </el-form-item>
                 <el-form-item label="主要业务：" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="off" placeholder="请输入主要业务"></el-input>
+                    <el-input v-model="form.Domain" autocomplete="off" placeholder="请输入主要业务"></el-input>
                 </el-form-item>
                 <el-form-item label="联系方式：" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="off" placeholder="请输入联系方式"></el-input>
+                    <el-input v-model="form.LinkPhone" autocomplete="off" placeholder="请输入联系方式"></el-input>
                 </el-form-item>
                 <el-form-item label="公司邮箱：" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="off" placeholder="请输入公司邮箱"></el-input>
+                    <el-input v-model="form.LineEmail" autocomplete="off" placeholder="请输入公司邮箱"></el-input>
                 </el-form-item>
                 <el-form-item label="公司地址：" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="off" placeholder="请输入公司地址"></el-input>
+                    <el-input v-model="form.Address" autocomplete="off" placeholder="请输入公司地址"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" align="center" class="dialog-footer">
@@ -48,29 +48,29 @@
         <!--</div>-->
 
 
-        <el-dialog title="公司信息修改" :visible.sync="dialogFormVisible" center>
-            <el-form :model="form" size="mini">
-                <el-form-item label="公司名称：" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="联系人：" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="on"></el-input>
-                </el-form-item>
-                <el-form-item label="主要业务：" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="on"></el-input>
-                </el-form-item>
-                <el-form-item label="联系方式：" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="on"></el-input>
-                </el-form-item>
-                <el-form-item label="公司地址：" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="on"></el-input>
-                </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-            </div>
-        </el-dialog>
+        <!--<el-dialog title="公司信息修改" :visible.sync="dialogFormVisible" center>-->
+            <!--<el-form :model="form" size="mini">-->
+                <!--<el-form-item label="公司名称：" :label-width="formLabelWidth">-->
+                    <!--<el-input v-model="form.FullName" autocomplete="off"></el-input>-->
+                <!--</el-form-item>-->
+                <!--<el-form-item label="联系人：" :label-width="formLabelWidth">-->
+                    <!--<el-input v-model="form.LinkMan" autocomplete="on"></el-input>-->
+                <!--</el-form-item>-->
+                <!--<el-form-item label="主要业务：" :label-width="formLabelWidth">-->
+                    <!--<el-input v-model="form.Domain" autocomplete="on"></el-input>-->
+                <!--</el-form-item>-->
+                <!--<el-form-item label="联系方式：" :label-width="formLabelWidth">-->
+                    <!--<el-input v-model="form.LineEmail" autocomplete="on"></el-input>-->
+                <!--</el-form-item>-->
+                <!--<el-form-item label="公司地址：" :label-width="formLabelWidth">-->
+                    <!--<el-input v-model="form.Address" autocomplete="on"></el-input>-->
+                <!--</el-form-item>-->
+            <!--</el-form>-->
+            <!--<div slot="footer" class="dialog-footer">-->
+                <!--<el-button @click="dialogFormVisible = false">取 消</el-button>-->
+                <!--<el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>-->
+            <!--</div>-->
+        <!--</el-dialog>-->
     </div>
 </template>
 <script>
@@ -81,13 +81,7 @@ export default {
             formLabelWidth: '120px',
             form: {
                 name: '',
-                region: '',
-                date1: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
+
             },
         }
     },
@@ -98,6 +92,7 @@ export default {
             this.$axios.get(this.$api.companyInfo.getAnnouncementData).then(
                 res => {
                     console.log("获取公司信息",res);
+                    this.form = res.data.Data
                 }
             ).catch(
                 err => {

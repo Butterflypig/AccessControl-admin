@@ -60,18 +60,18 @@
                             label="性别"
                             width="150">
                             </el-table-column>
-                            <el-table-column
-                             align="center"
-                            prop="entryTime"
-                            label="入职时间"
-                            width="150">
-                            </el-table-column>
-                            <el-table-column
-                             align="center"
-                            prop="separationTime"
-                            label="离职时间"
-                            width="150">
-                            </el-table-column>
+                            <!--<el-table-column-->
+                             <!--align="center"-->
+                            <!--prop="entryTime"-->
+                            <!--label="入职时间"-->
+                            <!--width="150">-->
+                            <!--</el-table-column>-->
+                            <!--<el-table-column-->
+                             <!--align="center"-->
+                            <!--prop="separationTime"-->
+                            <!--label="离职时间"-->
+                            <!--width="150">-->
+                            <!--</el-table-column>-->
                             <el-table-column
                              align="center"
                             prop="state"

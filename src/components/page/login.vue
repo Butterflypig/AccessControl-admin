@@ -76,7 +76,7 @@ export default {
                         this.loginToken = 'Basic ' +res.data.Data;
                         console.log(this.loginToken);
 
-                        this.changeLogin( { Authorization: this.loginToken } )
+                        this.changeLogin( { Authorization: this.loginToken } );
 
                         this.$router.push({
                             path:'/home'
