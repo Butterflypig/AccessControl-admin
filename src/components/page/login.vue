@@ -43,6 +43,7 @@ import { mapMutations } from 'vuex'
 export default {
     data (){
         return {
+            sn: '',
             loginToken: '',
             loginCode: '',
             form: {
@@ -57,7 +58,21 @@ export default {
 
         // 刷新验证码
         verificationCode (){
-            this.loginCode = 'http://www.reception.com/api/v1/User/ProcessRequest?'+ Math.floor(Math.random() * 100);
+            this.sn = this.GUID();
+            this.loginCode = 'http://www.reception.com/api/v1/User/ProcessRequest?SN='+ this.sn ;
+        },
+
+        //随机sn
+        GUID(){
+            let d = new Date().getTime();
+            let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                let r = (d + Math.random()*16)%16 | 0;
+                d = Math.floor(d/16);
+                return ( c == 'x' ? r : (r&0x3|0x8) ).toString(16);
+            });
+
+            return uuid;
+
         },
 
         // 用户登录
@@ -66,7 +81,7 @@ export default {
             obj.UserAcount = this.form.UserAcount;
             obj.PassWord = this.form.PassWord;
             obj.Value = this.form.Value;
-
+            obj.SN = this.sn;
 
             this.$axios.post(this.$api.login.userLogin , qs.stringify( obj )).then(
                 res => {

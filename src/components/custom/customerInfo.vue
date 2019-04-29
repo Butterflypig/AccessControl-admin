@@ -115,17 +115,11 @@
 
                         <!-- 分页 -->
                         <div>
-                            <!--<el-pagination-->
-                            <!--background-->
-                            <!--layout="prev, pager, next"-->
-                            <!--:total="total">-->
-                            <!--</el-pagination>    -->
-
                             <el-pagination
                                 background
                                 @size-change="handleSizeChange"
                                 @current-change="handleCurrentChange"
-                                :current-page="currentPage4"
+                                :current-page="pageNo"
                                 :page-sizes="[7, 8, 9, 10]"
                                 :page-size="size"
                                 layout="total, sizes, prev, pager, next, jumper"
@@ -336,7 +330,7 @@ import qs from 'qs'
 export default {
     data () {
         return{
-            currentPage4: 1,
+            pageNo: 1,
             size: 10,
             total: 0,
             sels: [],//选中的值显示
@@ -398,6 +392,11 @@ export default {
     },
     methods: {
 
+        pageChange (pageNo) {
+            // this.loading = true;
+            this.pageNo = pageNo;
+        },
+
         //点击哪页显示哪条
         handleCurrentChange(val) {
             console.log(`当前页: ${val}`);
@@ -426,6 +425,7 @@ export default {
         handleSizeChange(val) {
             console.log(`每页 ${val} 条`);
             this.size = val;
+            //this.handleCurrentChange();
         },
 
         //搜索
@@ -519,7 +519,7 @@ export default {
                     this.moduleData.Status = res.data.Data.info.Status;
                     this.moduleData.Email = res.data.Data.info.Email;
                     this.moduleData.Important = res.data.Data.info.Important;
-                    this.moduleData.IDCardNO = res.data.Data.info.IDCardNO;
+                    this.moduleData.IDCardNO = res.data.Data.info.IDCardNo;
                     this.moduleData.Address = res.data.Data.info.Address;
                     this.moduleData.Title = res.data.Data.info.Title;
                     this.moduleData.InterID = res.data.Data.info.InterID;
@@ -688,8 +688,19 @@ export default {
             )
         }
     },
+
+    beforeUpdate () {
+        localStorage.setItem('pagination', this.pageNo);
+    },
+
+    beforeDestroy () {
+        localStorage.setItem('pagination', '1');
+    },
+
     created () {
         this.getCustomerData();
+        this.pageNo = Number(localStorage.getItem('pagination')) || 1;
+        this.pageChange(this.pageNo);
     }
 }
 </script>

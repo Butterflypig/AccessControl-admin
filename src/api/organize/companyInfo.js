@@ -1,4 +1,4 @@
 export default {
-    getAnnouncementData: '/api/v1/Organize/Detail',  // 获取公告信息
-    delAnnouncementData: '/api/v1/Notice/Del'  // 删除公告
+    getCompanyData: '/api/v1/Organize/Detail',  // 获取公司信息
+    editCompanyData: '/api/v1/Organize/Put'  // 修改公司信息
 }
