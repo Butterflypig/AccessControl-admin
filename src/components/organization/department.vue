@@ -385,6 +385,7 @@ export default {
                 res => {
                     console.log("获取部门信息",res);
                     this.tableData = res.data.Data.PageData;
+                    this.total = res.data.Data.TotalCount;
                 }
             ).catch(
                 err => {

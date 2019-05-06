@@ -66,7 +66,11 @@
                             },
                             {
                                 index: 'customerArrangement',
-                                title: '客户安排'
+                                title: '内容推荐'
+                            },
+                            {
+                                index: 'visitingRecord',
+                                title: '预约管理'
                             },
                             {
                                 index: 'visitingRecord',
@@ -76,10 +80,10 @@
                                 index: 'matter',
                                 title: '事项设置'
                             },
-                            {
-                                index: 'tag',
-                                title: '标签设置'
-                            },
+                            // {
+                            //     index: 'tag',
+                            //     title: '标签设置'
+                            // },
                             {
                                 index: 'like',
                                 title: '兴趣点'

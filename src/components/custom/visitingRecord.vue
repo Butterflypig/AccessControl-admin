@@ -73,9 +73,14 @@
                             width="100">
                             </el-table-column>
                             <el-table-column
+                                prop="receptionist"
+                                label="接待结果"
+                                width="100">
+                            </el-table-column>
+                            <el-table-column
                             prop="remarks"
                             label="备注"
-                            width="300">
+                            width="200">
                             </el-table-column>
                             <el-table-column label="操作">
                                 <template>
