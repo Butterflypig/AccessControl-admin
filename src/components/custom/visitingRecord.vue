@@ -8,6 +8,8 @@
                     <span>日期选择：</span>
                     <el-date-picker
                     v-model="value2"
+                    format="yyyy-MM-dd"
+                    @change="formatTime"
                     type="daterange"
                     align="right"
                     unlink-panels
@@ -23,7 +25,7 @@
                     v-model="input10"
                     clearable>
                     </el-input>
-                    <el-button type="success">搜索</el-button>
+                    <el-button type="success" @click="search">搜索</el-button>
                 </div> 
             </div>
 
@@ -38,69 +40,62 @@
                         border
                         style="width: 100%">
                             <el-table-column
-                            prop="id"
+                            prop="Number"
                             label="序号"
                             width="100">
                             </el-table-column>
                             <el-table-column
-                            prop="name"
+                            prop="Visitor"
                             label="姓名"
                             width="100">
                             </el-table-column>
                             <el-table-column
-                            prop="appointment"
+                            prop="ScheduledTime"
                             label="预约时间"
                             width="200">
                             </el-table-column>
                             <el-table-column
-                            prop="visitTime"
+                            prop="VisitTime"
                             label="到访时间"
                             width="200">
                             </el-table-column>
                             <el-table-column
-                            prop="receptionTime"
+                            prop="ReceptTime"
                             label="接待时间"
                             width="200">
                             </el-table-column>
                             <el-table-column
-                            prop="visitingIntention"
+                            prop="Intention"
                             label="到访意图"
                             width="200">
                             </el-table-column>
                             <el-table-column
-                            prop="receptionist"
+                            prop="Receptor"
                             label="接待者"
                             width="100">
                             </el-table-column>
                             <el-table-column
-                                prop="receptionist"
+                                prop="Result"
                                 label="接待结果"
                                 width="100">
                             </el-table-column>
                             <el-table-column
-                            prop="remarks"
-                            label="备注"
-                            width="200">
-                            </el-table-column>
-                            <el-table-column label="操作">
-                                <template>
-                                    <el-button
-                                    size="mini"
-                                    >编辑</el-button>
-                                    <el-button
-                                    size="mini"
-                                    type="danger"
-                                    >删除</el-button>
-                                </template>
+                            prop="Description"
+                            label="备注">
                             </el-table-column>
                         </el-table>
 
                         <!-- 分页 -->
                         <div class="pagination">
                             <el-pagination
-                            background
-                            layout="prev, pager, next"
-                            :total="1000">
+                                background
+                                @size-change="handleSizeChange"
+                                @current-change="handleCurrentChange"
+                                :current-page="pageNo"
+                                :page-sizes="[7, 8, 9, 10]"
+                                :page-size="size"
+                                layout="total, sizes, prev, pager, next, jumper"
+                                :total="total">
                             </el-pagination>
                         </div>
                     </div>
@@ -113,6 +108,11 @@
 export default {
     data () {
         return{
+            pageNo: 1,
+            size: 10,
+            total: 0,
+            openNewModal: false, //新增模态框的开关
+            editModal: false, //编辑模态框的开关
             input10: '',
             value2: '',
             options2: [
@@ -133,36 +133,7 @@ export default {
                     label: '北京烤鸭'
                 }
             ],
-            tableData: [
-                {
-                    id : 1,
-                    name: 'Jack',
-                    appointment: '2019-04-22 10:00',
-                    visitTime: '2019-04-22 11:00',
-                    receptionTime: '2019-04-22 11:10',
-                    visitingIntention: '办事',
-                    receptionist: 'Jackson',
-                    remarks: '1111'
-                },{
-                     id : 1,
-                    name: 'Jack',
-                    appointment: '2019-04-22 10:00',
-                    visitTime: '2019-04-22 11:00',
-                    receptionTime: '2019-04-22 11:10',
-                    visitingIntention: '办事',
-                    receptionist: 'Jackson',
-                    remarks: '1111'
-                },{
-                     id : 1,
-                    name: 'Jack',
-                    appointment: '2019-04-22 10:00',
-                    visitTime: '2019-04-22 11:00',
-                    receptionTime: '2019-04-22 11:10',
-                    visitingIntention: '办事',
-                    receptionist: 'Jackson',
-                    remarks: '1111'
-                },
-            ],
+            tableData: [ ],
             pickerOptions: {
                 shortcuts: [{
                     text: '最近一周',
@@ -191,6 +162,82 @@ export default {
                 }]
             }
         }
+    },
+    methods: {
+
+        //定义每页多少条
+        handleSizeChange(val) {
+            console.log(`每页 ${val} 条`);
+            this.size = val;
+            //this.handleCurrentChange();
+        },
+
+        //点击哪页显示哪条
+        handleCurrentChange(val) {
+            console.log(`当前页: ${val}`);
+
+            this.$axios.get(this.$api.visit.getVisitData, {
+                params: {
+                    StartTime: '',
+                    EndTime: '',
+                    name : '',
+                    pageSize : this.size,
+                    pageIndex : val,
+                }
+            } ).then(
+                res => {
+                    console.log("加载初始数据：",res);
+                    this.tableData = res.data.Data.PageData;
+                    this.total = res.data.Data.TotalCount;
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
+            )
+        },
+
+        //
+        formatTime( val ){
+            this.value2 = val;
+        },
+
+        //搜索
+        search (){
+            console.log(this.value2[0]);
+            let a = '';
+            var year = this.value2[0].getFullYear();
+            var month =(this.value2[0].getMonth() + 1).toString();
+            var day = (this.value2[0].getDate()).toString();
+            if(month<10){
+                month = 0+month
+            }
+            if(day<10){
+                day = 0+day;
+            }
+            a = year+"-"+month+"-"+day;
+            console.log(a);
+        },
+
+        // 获取访问记录
+        getInitData () {
+            this.$axios.get(this.$api.visit.getVisitData).then(
+                res => {
+                    console.log("获取访问记录",res);
+
+                    this.tableData = res.data.Data.PageData;
+                    this.total = res.data.Data.TotalCount;
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
+            )
+        }
+    },
+    created (){
+        this.getInitData();
+
     }
 }
 </script>

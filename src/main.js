@@ -5,6 +5,10 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 
+//qs
+import qs from 'qs';
+Vue.prototype.$qs = qs;
+
 //vuex
 import store from './store'
 

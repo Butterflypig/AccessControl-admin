@@ -8,12 +8,14 @@
                     <el-button type="primary" icon="el-icon-plus" @click="openCreateModal">新增</el-button>
                 </div>
                 <div>
-                    <el-input
-                    placeholder="请输入搜索内容"
-                    v-model="input10"
-                    clearable>
-                    </el-input>
-                    <el-button type="success" @click="search">搜索</el-button>
+                    <el-col :span="18">
+                        <el-input
+                            placeholder="请输入搜索内容"
+                            v-model="input10"
+                            clearable>
+                        </el-input>
+                    </el-col>
+                    <el-button type="success">搜索</el-button>
                 </div> 
             </div>
 
@@ -171,24 +173,6 @@ export default {
             value2: '',
             openNewModal: false, //新增模态框的开关
             editModal: false, //编辑模态框的开关
-            options2: [
-                {
-                    value: '新登记',
-                    label: '新登记'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }
-            ],
             tableData: [ ],
             moduleDataNew: {
                 BranchName: '',
@@ -402,9 +386,6 @@ export default {
 <style scoped>
     .info-bg{
         height: 850px;
-    }
-    .el-input{
-        width: 150px;
     }
     .search{
         background-color: #314057;

@@ -69,7 +69,7 @@
                                 title: '内容推荐'
                             },
                             {
-                                index: 'visitingRecord',
+                                index: '',
                                 title: '预约管理'
                             },
                             {

@@ -304,12 +304,12 @@
                                         </el-row>
                                     </el-col>
                                 </el-row>
-                                <el-form-item label="兴趣点">
-                                    <el-input v-model="moduleData.Sex" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="标签">
-                                    <el-input v-model="moduleData.Tag" autocomplete="off"></el-input>
-                                </el-form-item>
+                                <!--<el-form-item label="兴趣点">-->
+                                    <!--<el-input v-model="moduleData.Sex" autocomplete="off"></el-input>-->
+                                <!--</el-form-item>-->
+                                <!--<el-form-item label="标签">-->
+                                    <!--<el-input v-model="moduleData.Tag" autocomplete="off"></el-input>-->
+                                <!--</el-form-item>-->
                             </el-form>
                             <div slot="footer" class="dialog-footer">
                                 <el-button @click="dialogFormVisible = false">取 消</el-button>
