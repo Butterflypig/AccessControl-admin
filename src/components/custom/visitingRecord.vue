@@ -20,11 +20,13 @@
                     </el-date-picker>
                 </div>
                 <div>
-                    <el-input
-                    placeholder="请输入搜索内容"
-                    v-model="input10"
-                    clearable>
-                    </el-input>
+                    <el-col :span="18">
+                        <el-input
+                            placeholder="请输入搜索内容"
+                            v-model="input10"
+                            clearable>
+                        </el-input>
+                    </el-col>
                     <el-button type="success" @click="search">搜索</el-button>
                 </div> 
             </div>
@@ -202,21 +204,52 @@ export default {
             this.value2 = val;
         },
 
-        //搜索
-        search (){
-            console.log(this.value2[0]);
-            let a = '';
-            var year = this.value2[0].getFullYear();
-            var month =(this.value2[0].getMonth() + 1).toString();
-            var day = (this.value2[0].getDate()).toString();
+        //日期转换
+        dateTurn ( time ){
+            let year = time.getFullYear();
+            let month =(time.getMonth() + 1).toString();
+            let day = (time.getDate()).toString();
             if(month<10){
                 month = 0+month
             }
             if(day<10){
                 day = 0+day;
             }
-            a = year+"-"+month+"-"+day;
-            console.log(a);
+            return year+"-"+month+"-"+day;
+        },
+
+        //搜索
+        search (){
+            let a = '';
+            let b = '';
+
+            console.log( 'zhi',this.value2);
+
+            // a = this.dateTurn( this.value2[0] );
+            // b = this.dateTurn( this.value2[1] );
+
+            console.log(a,b);
+            this.$axios.get(this.$api.visit.getVisitData, {
+                params: {
+                    StartTime: a,
+                    EndTime: b,
+                    name : this.input10,
+                    pageSize : this.size,
+                    pageIndex : 1,
+                }
+            } ).then(
+                res => {
+                    console.log("搜索结果",res);
+
+                    this.tableData = res.data.Data.PageData;
+                    this.total = res.data.Data.TotalCount;
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
+            )
+
         },
 
         // 获取访问记录
@@ -246,7 +279,7 @@ export default {
         height: 850px;
     }
     .el-input{
-        width: 150px;
+        color: #fff;
     }
     .search{
         background-color: #314057;
@@ -290,54 +323,10 @@ export default {
         bottom: 20px;
         left: 589px;
     }
-</style>
+
     .info-bg{
         background: #fff;
         height: 850px;
         padding: 25px;
     }
-    .el-input{
-        width: 150px;
-    }
-    .search{
-        background-color: #314057;
-        color: white;
-        padding: 25px 80px;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: space-between;
-    }
-    .el-button{
-        background-color: #639fa9;
-        border: #639fa9;
-        color: white;
-    }
-
-    /* 内容部分 */
-   
-    .contain >div { 
-        padding-top: 40px;
-        margin-top: 15px;
-        height: 600px;
-        background: #efefef;
-        position: relative;
-    }
-     .contain >div>h3{
-         font-weight: normal;
-         font-size: 28px;
-         color: #333333
-     }
-      .table{
-        
-        width: 98%;
-        margin: 20px auto;
-    }
-
-    /* 分页 */
-    .pagination{
-        position: absolute;
-        bottom: 20px;
-        left: 589px;
-    }
-
 </style>

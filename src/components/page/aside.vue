@@ -15,6 +15,10 @@
                 background-color="#314057"
                 text-color="#fff"
                 active-text-color="#ffd04b">
+                <el-menu-item index="index">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">首页</span>
+                </el-menu-item>
                 <el-submenu v-for="(item,key) in list" :key="key" :index="item.id">
                     <template slot="title">
                         <svg class="icon" aria-hidden="true">
@@ -22,6 +26,7 @@
                         </svg>
                         <span>{{item.name}}</span>
                     </template>
+
                     <el-menu-item-group v-for="(group,index) in item.items" :key="index">
                         <el-menu-item :index="group.index" @click="toPage(group.index)">{{group.title}}</el-menu-item>
                     </el-menu-item-group>
@@ -127,18 +132,18 @@
                                 index: 'voice',
                                 title: '语音设置'
                             },
-                            {
-                                index: 'system',
-                                title: '系统设置'
-                            },
+                            // {
+                            //     index: 'system',
+                            //     title: '系统设置'
+                            // },
                             {
                                 index: 'account',
                                 title: '账号设置'
                             },
-                            {
-                                index: 'default',
-                                title: '默认设置'
-                            }
+                            // {
+                            //     index: 'default',
+                            //     title: '默认设置'
+                            // }
                         ]
                     }
                 ]

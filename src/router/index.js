@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
     mode: 'history',
@@ -101,6 +101,11 @@ const router = new Router({
                     path: '/like',
                     name: 'like',
                     component: resolve => require(['./../components/custom/like.vue'],resolve)
+                },
+                {
+                    path: '/index',
+                    name: 'index',
+                    component: resolve => require(['./../components/page/myIndex.vue'],resolve)
                 }
             ]
         },
