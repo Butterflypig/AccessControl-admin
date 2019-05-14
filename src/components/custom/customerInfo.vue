@@ -109,6 +109,11 @@
                                     type="danger"
                                     @click="handleDelete(scope.$index, scope.row)"
                                     >删除</el-button>
+                                    <el-button
+                                        size="mini"
+                                        type="danger"
+                                        @click="reservation(scope.$index, scope.row)"
+                                    >预约</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -135,7 +140,21 @@
                                 <el-row>
                                     <el-col :span="6">
                                         <div class="photo" align="center">
-                                            <img src="./../../../static/images/photo.jpg" alt="头像">
+                                            <img :src="'http://www.reception.com/'+imgs" alt="头像">
+                                            <el-form-item label="文件" label-width="50px">
+                                                <el-upload
+                                                    action="http://www.reception.com/api/v1/Custom/UploadFile"
+                                                    class="upload-demo"
+                                                    :auto-upload="false"
+                                                    :limit="3"
+                                                    ref="upload"
+                                                    :http-request="upload"
+                                                    @change="upload"
+                                                    multiple>
+                                                    <!-- :http-request="upload" -->
+                                                    <el-button size="small" type="primary">点击上传</el-button>
+                                                </el-upload>
+                                            </el-form-item>
                                         </div>
                                     </el-col>
                                     <el-col :span="18">
@@ -230,7 +249,7 @@
                                 <el-row>
                                     <el-col :span="6">
                                         <div class="photo" align="center">
-                                            <img src="./../../../static/images/photo.jpg" alt="头像">
+                                            <img :src="'http://www.reception.com/'+imgs2" alt="头像">
                                         </div>
                                     </el-col>
                                     <el-col :span="18">
@@ -316,7 +335,37 @@
                                 <el-button type="primary" @click="editData">确 定</el-button>
                             </div>
                         </el-dialog>
-                    </div>            
+                    </div>
+
+                    <!-- 预约的新增模态框 -->
+                    <div class="module">
+                        <el-dialog title="新增" :visible.sync="openNewModalres" center width='30%' >
+                            <el-form label-width="80px" :model="moduleDataNewres" size="mini">
+                                <el-form-item label="到访时间">
+                                    <el-date-picker
+                                        v-model="moduleDataNewres.ScheduledTime"
+                                        type="date"
+                                        placeholder="选择日期">
+                                    </el-date-picker>
+                                </el-form-item>
+                                <el-form-item label="到访意图">
+                                    <el-select v-model="itemList" @change="aaa" clearable placeholder="请选择意图">
+                                        <el-option
+                                            v-for="item in reservationList"
+                                            :key="item.ID"
+                                            :label="item.Title"
+                                            :value="item.ID+ ' ' +item.Title">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                            </el-form>
+                            <div slot="footer" class="dialog-footer">
+                                <el-button @click="openNewModalres = false">取 消</el-button>
+                                <el-button type="primary" @click="addReservation">确 定</el-button>
+                            </div>
+                        </el-dialog>
+                    </div>
                 </div>
             </main>
         </div>
@@ -330,15 +379,19 @@ import qs from 'qs'
 export default {
     data () {
         return{
+            imgs: '',
+            imgs2: '',
             pageNo: 1,
             size: 10,
             total: 0,
             sels: [],//选中的值显示
+            openNewModalres:false,  //预约的新增
             openNewModal: false, //新增模态框的开关
             dialogFormVisible: false, //编辑模态框的开关
             formLabelWidth: '180',
             input10: '',
             value2: '',
+            reservationList: [],
             options2: [
                 {
                     value: '1',
@@ -387,10 +440,115 @@ export default {
                 Title: '',
                 InterID: '',
                 Tag: ''
-            }
+            },
+            itemList: '',
+            moduleDataNewres: {
+                CustID: '',
+                Title: '',
+                ScheduledTime: '',
+                IssueID: ''
+            },
         }
     },
     methods: {
+
+        //images
+        upload() {
+            const formData = new FormData();
+            const file = this.$refs.upload.uploadFiles[0];
+            const headerConfig = { headers: { 'Content-Type': 'multipart/form-data' } };
+            if (!file) { // 若未选择文件
+                alert('请选择文件');
+                return;
+            }
+            formData.append('fileinfos', file.raw);
+            this.$axios.post('http://www.reception.com/api/v1/Custom/UploadFile', formData, headerConfig).then(res => {
+                console.log('上传图片后的',res);
+                this.imgs = res.data.Message;
+                console.log(this.imgs);
+            }).catch(
+                err => {
+                    console.log(err);
+                }
+            )
+        },
+
+        aaa(){
+            console.log("aaa");
+            if ( this.itemList != null ){
+                console.log(this.itemList);
+                let arrList = this.itemList.split(' ');
+
+                this.moduleDataNewres.IssueID = arrList[0];
+                this.moduleDataNewres.Title = arrList[1];
+
+                console.log('IssueID',this.moduleDataNewres.IssueID);
+                console.log('Title',this.moduleDataNewres.Title)
+            }
+
+        },
+
+        //日期转换
+        dateTurn ( time ){
+            let year = time.getFullYear();
+            let month =(time.getMonth() + 1).toString();
+            let day = (time.getDate()).toString();
+            if(month<10){
+                month = 0+month
+            }
+            if(day<10){
+                day = 0+day;
+            }
+            return year+"-"+month+"-"+day;
+        },
+
+        //增加预约
+        addReservation(){
+            let obj = { };
+
+            obj.Title = this.moduleDataNewres.Title;
+            obj.CustID = this.moduleDataNewres.CustID;
+            obj.ScheduledTime = this.dateTurn( this.moduleDataNewres.ScheduledTime );
+            obj.IssueID = this.moduleDataNewres.IssueID;
+
+
+            this.$axios.post( this.$api.reservation.addReservationData ,this.$qs.stringify( obj ) ).then(
+                res => {
+                    console.log(res);
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
+            );
+
+            this.openNewModalres = false;
+        },
+
+        //获取到访意图列表
+        getReservationList(){
+            this.$axios.get( this.$api.reservation.getReservationList ).then(
+                res => {
+                    console.log( '下拉',res);
+                    this.reservationList = res.data.Data;
+                }
+            ).catch(
+                err => {
+                    console.log(err);
+                }
+            )
+        },
+
+        //预约的新增
+        reservation(index,row ){
+            this.moduleDataNewres.CustID = row.CustID;
+
+            console.log('aaa');
+            console.log(this.moduleDataNewres.CustID);
+
+            this.openNewModalres = true;
+            this.getReservationList();
+        },
 
         pageChange (pageNo) {
             // this.loading = true;
@@ -462,45 +620,53 @@ export default {
 
         // 新增
         createData (){
-            let obj = {};
-            obj.Name = this.moduleDataNew.Name;
-            obj.Sex = this.moduleDataNew.Sex;
-            obj.Age = this.moduleDataNew.Age;
-            obj.Phone = this.moduleDataNew.Phone;
-            obj.Profession = this.moduleDataNew.Profession;
-            obj.Email = this.moduleDataNew.Email;
-            obj.Important = this.moduleDataNew.Important;
-            obj.IDCardNO = this.moduleDataNew.IDCardNO;
-            obj.Address = this.moduleDataNew.Address;
-            obj.Title = this.moduleDataNew.Title;
+            this.upload();
+            setTimeout(
+                ()=>{
+                    let obj = {};
+                    obj.Name = this.moduleDataNew.Name;
+                    obj.Sex = this.moduleDataNew.Sex;
+                    obj.Age = this.moduleDataNew.Age;
+                    obj.Phone = this.moduleDataNew.Phone;
+                    obj.Profession = this.moduleDataNew.Profession;
+                    obj.Email = this.moduleDataNew.Email;
+                    obj.Important = this.moduleDataNew.Important;
+                    obj.IDCardNO = this.moduleDataNew.IDCardNO;
+                    obj.Address = this.moduleDataNew.Address;
+                    obj.Title = this.moduleDataNew.Title;
 
-            obj.InterID = '1|2';
-            obj.Tags = '1|2';
+                    obj.ImageUrl = this.imgs;
+                    console.log(this.imgs);
 
-            this.$axios.post('http://www.reception.com/api/v1/Custom/Put', qs.stringify(obj)).then(
-                (res) => {
-                    console.log("确认新增：",res);
+                    obj.InterID = '3|4';
+                    obj.Tags = '1|2';
 
-                    if ( res.data.Result ){
-                        this.$message({
-                            type: 'success',
-                            message: '添加成功!'
-                        });
-                    } else {
-                        this.$message({
-                            type: 'warning',
-                            message: '添加失败!'
-                        });
-                    }
+                    this.$axios.post('http://www.reception.com/api/v1/Custom/Put', qs.stringify(obj)).then(
+                        (res) => {
+                            console.log("确认新增：",res);
 
-                    //重新渲染数据
-                    this.getCustomerData();
-                }
-            ).catch(
-                (error) => {
-                    console.log(error);
-                }
-            );
+                            if ( res.data.Result ){
+                                this.$message({
+                                    type: 'success',
+                                    message: '添加成功!'
+                                });
+                            } else {
+                                this.$message({
+                                    type: 'warning',
+                                    message: '添加失败!'
+                                });
+                            }
+
+                            //重新渲染数据
+                            this.getCustomerData();
+                        }
+                    ).catch(
+                        (error) => {
+                            console.log(error);
+                        }
+                    );
+                },2000);
+
 
             this.openNewModal = false;
         },
@@ -510,6 +676,7 @@ export default {
             this.$axios.get(this.$api.customer.getEditData+'?id='+ id ).then(
                 res => {
                     console.log('编辑的内容:',res);
+                    this.imgs2 = res.data.Data.info.ImageUrl;
                     this.moduleData.CustID = res.data.Data.info.CustID;
                     this.moduleData.Name = res.data.Data.info.Name;
                     this.moduleData.Sex = res.data.Data.info.Sex;

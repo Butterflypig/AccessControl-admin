@@ -88,9 +88,9 @@ const router = new Router({
                     component: resolve => require(['./../components/setting/default.vue'],resolve)
                 },
                 {
-                    path: '/tag',
-                    name: 'tag',
-                    component: resolve => require(['./../components/custom/tag.vue'],resolve)
+                    path: '/reservation',
+                    name: 'reservation',
+                    component: resolve => require(['./../components/custom/reservation.vue'],resolve)
                 },
                 {
                     path: '/matter',

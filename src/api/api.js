@@ -7,7 +7,8 @@ import device from './organize/device' //设备管理
 import visit from './customer/visit'    //到访日志
 import like from './customer/like'      //兴趣点
 import matter from './customer/matter'  //事项设置
-
+import reservation from './customer/reservation'   //预约管理
+import recommend from './customer/recommend'      //客户推荐
 
 import login from './login'
 
@@ -22,5 +23,7 @@ export default {
     visit,
     like,
     matter,
+    reservation,
+    recommend,
     login
 }

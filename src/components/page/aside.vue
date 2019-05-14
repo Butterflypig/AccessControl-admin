@@ -16,8 +16,10 @@
                 text-color="#fff"
                 active-text-color="#ffd04b">
                 <el-menu-item index="index">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">首页</span>
+                    <span>
+                        <img class="img" src="./../../../static/icon/huaxiLogo.png" alt="">
+                    </span>
+                    <span slot="title">我的首页</span>
                 </el-menu-item>
                 <el-submenu v-for="(item,key) in list" :key="key" :index="item.id">
                     <template slot="title">
@@ -74,7 +76,7 @@
                                 title: '内容推荐'
                             },
                             {
-                                index: '',
+                                index: 'reservation',
                                 title: '预约管理'
                             },
                             {
@@ -85,10 +87,6 @@
                                 index: 'matter',
                                 title: '事项设置'
                             },
-                            // {
-                            //     index: 'tag',
-                            //     title: '标签设置'
-                            // },
                             {
                                 index: 'like',
                                 title: '兴趣点'
@@ -129,21 +127,18 @@
                                 title: '公告设置'
                             },
                             {
+                                index: 'ad',
+                                title: '广告设置'
+                            },
+                            {
                                 index: 'voice',
                                 title: '语音设置'
                             },
-                            // {
-                            //     index: 'system',
-                            //     title: '系统设置'
-                            // },
                             {
                                 index: 'account',
                                 title: '账号设置'
                             },
-                            // {
-                            //     index: 'default',
-                            //     title: '默认设置'
-                            // }
+
                         ]
                     }
                 ]
@@ -173,6 +168,11 @@
 <style lang="less" scoped>
     @import "./../../assets/less/index";
 
+    .img{
+        width: 14px;
+        height: 14px;
+        margin-right: 25px;
+    }
     .logo {
         padding: 40px 0;
     }
